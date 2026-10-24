@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>罗泓森 · 高级 Java 开发工程师</title>
+<meta name="description" content="8 年 Java 后端经验，做过支付、IoT、微服务与 AI 知识库落地。提供远程故障排查、后端外包与企业 AI 知识库交付。" />
+<style>
+  :root{
+    --bg:#ffffff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb;
+    --card:#fafafa; --accent:#2563eb; --accent-soft:#eff6ff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0b1220; --fg:#e5e7eb; --muted:#94a3b8; --line:#1e293b;
+           --card:#111a2b; --accent:#60a5fa; --accent-soft:#172554; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:56px 22px 80px}
+  header{margin-bottom:56px}
+  h1{font-size:34px;line-height:1.25;margin:0 0 12px;letter-spacing:-.02em}
+  .tagline{font-size:18px;color:var(--fg);margin:0 0 18px;max-width:640px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:13px;color:var(--muted);border:1px solid var(--line);
+    border-radius:999px;padding:4px 12px;background:var(--card)}
+  section{margin-bottom:52px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);
+    font-weight:600;margin:0 0 20px}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .card{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--card)}
+  .card h3{margin:0 0 8px;font-size:17px}
+  .card p{margin:0 0 12px;font-size:14px;color:var(--muted)}
+  .price{font-size:14px;font-weight:600;color:var(--accent)}
+  ul.plain{list-style:none;padding:0;margin:0}
+  ul.plain li{padding:12px 0;border-bottom:1px solid var(--line)}
+  ul.plain li:last-child{border-bottom:0}
+  .item-title{font-weight:600}
+  .item-desc{color:var(--muted);font-size:14px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .stack{display:flex;flex-wrap:wrap;gap:8px}
+  .stack span{font-size:13px;padding:5px 11px;border-radius:8px;
+    background:var(--accent-soft);color:var(--accent)}
+  footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:13px}
+  .contact{display:flex;flex-wrap:wrap;gap:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>罗泓森（Hanson）</h1>
+    <p class="tagline">
+      高级 Java 开发工程师，8 年后端经验。做过支付、IoT、微服务与企业 AI 知识库落地，
+      擅长把复杂问题一次做对。远程交付，按次或按项目。
+    </p>
+    <div class="tags">
+      <span class="tag">Java / Spring Boot</span>
+      <span class="tag">微服务 · 网关 · 支付</span>
+      <span class="tag">AI 知识库 · RAG</span>
+      <span class="tag">全栈独立交付</span>
+      <span class="tag">南宁 · 可远程</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>能提供什么</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>线上故障救火</h3>
+        <p>接口报错、支付回调验签失败、慢 SQL、连接池打满、部署起不来、并发与幂等问题。</p>
+        <div class="price">200–300 元/小时</div>
+      </div>
+      <div class="card">
+        <h3>后端接口 / 模块外包</h3>
+        <p>Spring Boot 接口与数据库设计、支付对接、小程序/APP 后端、老系统改造。</p>
+        <div class="price">500–800 元/天</div>
+      </div>
+      <div class="card">
+        <h3>企业 AI 知识库</h3>
+        <p>文档导入、问答界面、文档级权限、私有化部署——数据不出内网。先做 demo 再签。</p>
+        <div class="price">1.5 万起</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>技术栈</h2>
+    <div class="stack">
+      <span>Java</span><span>Spring Boot</span><span>Spring Cloud Gateway</span>
+      <span>MyBatis-Plus</span><span>MySQL</span><span>Redis</span>
+      <span>RocketMQ</span><span>Netty</span><span>Docker</span>
+      <span>Go</span><span>Python</span><span>Rust</span><span>JavaScript</span>
+      <span>RAG / 向量检索</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>做过的东西</h2>
+    <ul class="plain">
+      <li>
+        <div class="item-title"><a href="https://github.com/luobobo896/asset-management">asset-management</a> · 企业数字资产台账</div>
+        <div class="item-desc">Go 实现的企业内部台账系统，管号码、小程序、商户号等 7 类资源与主数据，带跨模块统计。</div>
+      </li>
+      <li>
+        <div class="item-title"><a href="https://github.com/luobobo896/whatsapp_ai">whatsapp_ai</a> · WhatsApp AI 客服</div>
+        <div class="item-desc">纯 Go 实现的多账号客服平台，内置连接器与 AI 自动回复，配本地网关与 iOS 客户端。</div>
+      </li>
+      <li>
+        <div class="item-title"><a href="https://github.com/luobobo896/story-to-video-pipeline">story-to-video-pipeline</a> · 影视制作流水线</div>
+        <div class="item-desc">把剧本或小说按阶段编排成成片，短剧、影视、动画复用同一套流程。</div>
+      </li>
+      <li>
+        <div class="item-title"><a href="https://github.com/luobobo896/ptu">ptu</a> · 跨平台端口管理工具</div>
+        <div class="item-desc">Rust 实现的命令行工具，查看端口占用，类 ss / lsof，macOS 与 Linux 可用。</div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>写过的文章</h2>
+    <ul class="plain">
+      <li>
+        <div class="item-title">
+          <a href="https://juejin.cn/spost/7699823462952894490">支付回调验签连续失败三天，最后发现是网关的时间戳单位问题</a>
+        </div>
+        <div class="item-desc">验签失败的逐条排查路径、卡点与根因复盘。掘金 · 2026-10</div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>联系</h2>
+    <div class="contact">
+      <a href="https://github.com/luobobo896">GitHub</a>
+      <a href="https://juejin.cn/user/center">掘金</a>
+      <a href="mailto:luobobo896@gmail.com">luobobo896@gmail.com</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 罗泓森 · 本页内容为个人技术能力介绍，不涉及任何在职公司信息。
+  </footer>
+
+</div>
+</body>
+</html>
