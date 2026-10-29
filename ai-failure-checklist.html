@@ -6,96 +6,27 @@
 <link rel="stylesheet" href="assets/base.css" />
 <title>AI 干错了怎么发现 · 29 条可对照的检查项 · Hanson</title>
 <meta name="description" content="从 60 多次真实翻车里收出来的一份检查清单：门全绿但东西是错的、数字对不上先怀疑尺子、看起来跑通其实什么都没变。企业上 AI 之后怎么验。" />
-<style>
-  body { counter-reset: n; }
-
-  header { margin-bottom: 48px; }
-  .tagline { font-size: 18px; line-height: 1.6; color: var(--text-muted); margin: 0 0 16px; max-width: 60ch; }
-  .meta { font-size: 12px; line-height: 1.6; color: var(--text-muted); }
-
-  .lede {
-    border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    padding: 24px;
-    background: var(--surface);
-    font-size: 16px;
-    line-height: 1.75;
-    margin: 0 0 48px;
-  }
-
-  .group { margin-bottom: 48px; }
-  .group h3 { letter-spacing: -0.01em; }
-  .group .sub { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0 0 16px; }
-
-  ol.items { list-style: none; padding: 0; margin: 0; }
-  ol.items li {
-    counter-increment: n;
-    padding: 16px 0 16px 40px;
-    border-top: 1px solid var(--border);
-    position: relative;
-  }
-  ol.items li::before {
-    content: counter(n);
-    position: absolute;
-    left: 0;
-    top: 16px;
-    width: 24px;
-    height: 24px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    background: var(--accent-soft);
-    border-radius: var(--r-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .what { font-weight: 600; display: block; margin-bottom: 4px; }
-  .how { font-size: 14px; line-height: 1.6; color: var(--text-muted); display: block; }
-  .how b { color: var(--text); font-weight: 600; }
-
-  .rootsec h2 { font-size: 20px; text-transform: none; letter-spacing: -0.01em; color: var(--text); }
-  .root {
-    list-style: none;
-    counter-reset: r;
-    border-left: 3px solid var(--accent);
-    padding: 0 0 0 16px;
-    margin: 0;
-  }
-  .root li {
-    counter-increment: r;
-    margin-bottom: 12px;
-    font-size: 16px;
-    line-height: 1.6;
-    position: relative;
-    padding-left: 24px;
-  }
-  .root li:last-child { margin-bottom: 0; }
-  .root li::before {
-    content: counter(r) ".";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-  .root b { display: block; margin-bottom: 2px; }
-
-  @media print {
-    body { font-size: 12px; }
-    .wrap { padding: 0; max-width: none; }
-    section, .group { margin-bottom: 24px; }
-    ol.items li { padding: 8px 0 8px 32px; break-inside: avoid; }
-    .lede { break-inside: avoid; }
-  }
-</style>
+<meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)" />
 </head>
-<body>
-<div class="wrap">
+<body class="doc">
+<a class="skip" href="#main">跳到正文</a>
 
-  <header>
+<nav class="nav" id="nav" aria-label="页面导航">
+  <div class="nav__inner">
+    <span class="nav__brand">Hanson</span>
+    <ul class="nav__links">
+      <li><a href="index.html">← 返回主页</a></li>
+      <li><a href="#main">29 条检查项</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<main id="main" class="wrap wrap--wide">
+  <div class="doc__head">
+<header class="doc__heading reveal">
     <h1>AI 干错了怎么发现</h1>
     <p class="tagline">
       AI 最麻烦的地方不是它做不出来，是<strong>它做错了不告诉你</strong>。
@@ -104,8 +35,21 @@
     </p>
     <p class="meta">Hanson · 2026-10 · <a href="./index.html">返回主页</a></p>
   </header>
+  </div>
 
-  <div class="lede">
+  <div class="doc__layout">
+    <aside aria-label="小节导航">
+      <ul class="toc" id="toc">
+        <li><a href="#g1">一、门全绿，东西是错的</a></li>
+        <li><a href="#g2">二、数字对不上，先怀疑尺子</a></li>
+        <li><a href="#g3">三、看起来跑通了，其实什么都没变</a></li>
+        <li><a href="#g4">四、AI 生成的东西，错得很一致</a></li>
+        <li><a href="#g5">五、规矩写在文档里，等于没写</a></li>
+        <li><a href="#root">这 29 条其实只有四个根因</a></li>
+      </ul>
+    </aside>
+    <div class="doc__content">
+<div class="note">
     <p><strong>为什么有用。</strong>大部分「AI 质检」最后都会变成一个问题：你怎么知道它这次没糊弄你？
     这批错里最贵的不是那些一眼看出来的，是那些<strong>检查全过、日志全绿、结果却是错的</strong>。</p>
     <p>所以我后来不加检查项了，改成每条检查后面都追问一句：
@@ -113,7 +57,7 @@
   </div>
 
   <div class="group">
-    <h3>一、门全绿，东西是错的</h3>
+    <h3 id="g1">一、门全绿，东西是错的</h3>
     <p class="sub">这类最贵。所有自动检查都过了，人也签了字，成品是错的。</p>
     <ol class="items">
       <li><span class="what">九道检查全 PASS，成品却从头到尾用的是上一次的素材。</span>
@@ -130,7 +74,7 @@
   </div>
 
   <div class="group">
-    <h3>二、数字对不上，先怀疑尺子</h3>
+    <h3 id="g2">二、数字对不上，先怀疑尺子</h3>
     <p class="sub">这类最伤自信——你会去修一个根本不存在的问题，还修得很认真。</p>
     <ol class="items">
       <li><span class="what">用错的工具量中文长度，字节被当成字符，3,389 报成 3,389 个字符，据此判断「超出上限 86%」。</span>
@@ -147,7 +91,7 @@
   </div>
 
   <div class="group">
-    <h3>三、看起来跑通了，其实什么都没变</h3>
+    <h3 id="g3">三、看起来跑通了，其实什么都没变</h3>
     <p class="sub">「操作成功」这四个字，是这一行最大的谎言。</p>
     <ol class="items">
       <li><span class="what">富文本编辑器里赋值成功、界面上字也在，实际没进编辑器状态，发布出去是空的。</span>
@@ -166,7 +110,7 @@
   </div>
 
   <div class="group">
-    <h3>四、AI 生成的东西，错得很一致</h3>
+    <h3 id="g4">四、AI 生成的东西，错得很一致</h3>
     <p class="sub">它不是随机出错，它是有把握地错——这比随机错危险。</p>
     <ol class="items">
       <li><span class="what">让它写一段真实感言，它编出「8 份成品」「6 篇草稿」「攒了两个月」，逐条去原始记录里搜，一条都搜不到。</span>
@@ -189,7 +133,7 @@
   </div>
 
   <div class="group">
-    <h3>五、规矩写在文档里，等于没写</h3>
+    <h3 id="g5">五、规矩写在文档里，等于没写</h3>
     <p class="sub">这一组不关于技术，关于「为什么同一条错会犯两次」。</p>
     <ol class="items">
       <li><span class="what">规定只写在手册第 4 节，而执行的人只看流程清单第 2 步。</span>
@@ -206,7 +150,7 @@
   </div>
 
   <section class="rootsec">
-    <h2>这 29 条其实只有四个根因</h2>
+    <h2 id="root">这 29 条其实只有四个根因</h2>
     <ol class="root">
       <li><b>检查只判可测量的格式项，不判来源与位置。</b>
         所以「全绿」和「对」之间永远隔着一段距离。补法：每加一项，追问它能被怎么骗过去。</li>
@@ -218,13 +162,19 @@
         所有「口径没对齐就下结论」的错，都从这一句假设开始。</li>
     </ol>
   </section>
+    </div>
+  </div>
 
-  <footer>
+<footer>
     © 2026 Hanson · 这份清单来自一套真实在跑的 AI 内容流水线，样本是 60 多次实际翻车。
     页内不含任何在职公司信息，也不含客户数据。
     · <a href="./index.html">返回主页</a>
   </footer>
+</main>
 
-</div>
+<div class="cursor-glow" id="glow" aria-hidden="true"></div>
+<script src="assets/vendor/motion.min.js" defer></script>
+<script src="assets/vendor/vanilla-tilt.min.js" defer></script>
+<script src="assets/motion.js" defer></script>
 </body>
 </html>
