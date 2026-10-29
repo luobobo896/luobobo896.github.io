@@ -64,43 +64,32 @@
     </div>
   </header>
   <section id="capy-pet">
-    <div class="wrap">
+    <div class="wrap wrap--wide">
       <div class="section__head reveal">
         <p class="eyebrow">01</p>
         <h2>摸一下这只水豚</h2>
       </div>
-      <p class="lede reveal">一进首页就能看见它。点一下会跳，喂片橘子会嚼，扔个球它小跑着顶回来；连着逗三次，它就凑到镜头前蹭你。</p>
+      <p class="lede reveal">一进首页就能看见它。点一下会跳，喂片橘子会嚼，扔个球它就晃一下顶回来；连着逗三次，它就凑到镜头前蹭你。</p>
       <div class="pet reveal">
         <div class="pet__stage" id="pet-stage" role="img"
-               aria-label="一只可以摸的 3D 水豚：点一下会跳，能投喂橘子、陪它玩球，也可以按住左右拖动转动它">
-          <div class="pet__scene">
-            <div class="pet__rig" id="pet-rig">
-              <span class="pet__shadow" aria-hidden="true"></span>
-              <span class="pet__tail" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--bl" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--br" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--fl" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--fr" aria-hidden="true"></span>
-              <span class="pet__body" aria-hidden="true"></span>
-              <div class="pet__head" aria-hidden="true">
-                <span class="pet__ear pet__ear--l"></span>
-                <span class="pet__ear pet__ear--r"></span>
-                <span class="pet__muzzle"></span>
-                <span class="pet__cheek"></span>
-                <span class="pet__eye pet__eye--l"></span>
-                <span class="pet__eye pet__eye--r"></span>
-                <span class="pet__crumb"></span>
-              </div>
-              <span class="pet__orange" aria-hidden="true"></span>
-              <span class="pet__ball" aria-hidden="true"></span>
-              <span class="pet__heart pet__heart--a" aria-hidden="true"></span>
-              <span class="pet__heart pet__heart--b" aria-hidden="true"></span>
-              <span class="pet__heart pet__heart--c" aria-hidden="true"></span>
-            </div>
+               aria-label="一只站着的水豚照片，背景已抠干净：点一下它会动，能投喂橘子、陪它玩球，可爱值只存在这台电脑上">
+          <div class="pet__rig" id="pet-rig">
+            <span class="pet__shadow" aria-hidden="true"></span>
+            <img class="pet__photo" id="pet-photo" src="assets/capybara/stage-320.webp"
+                 alt="" width="320" height="304" decoding="async" />
+            <!-- 抠像后背景透明，脚下这层椭圆是照片外面的地面投影，不是图自带的 -->
+            <!-- 戳到位时眼睛变成 ^ ^：坐标是量着实拍图那只眼画的（viewBox 与图同尺寸 320×304） -->
+            <svg class="pet__face" viewBox="0 0 320 304" aria-hidden="true">
+              <path class="pet__eye" d="M232 50q9-13 18 0" />
+            </svg>
+            <span class="pet__crumb" aria-hidden="true"></span>
+            <span class="pet__ball" aria-hidden="true"></span>
+            <span class="pet__heart pet__heart--a" aria-hidden="true"></span>
+            <span class="pet__heart pet__heart--b" aria-hidden="true"></span>
+            <span class="pet__heart pet__heart--c" aria-hidden="true"></span>
           </div>
           <div class="pet__flat" id="pet-fallback" hidden>
-            <img src="assets/capybara/head-vig-96.webp" alt="水豚" width="96" height="96" decoding="async" />
-            <p>这台设备放不出 3D，水豚就在这儿趴着，按钮一样能玩。</p>
+            <p>照片没加载出来。它平时就待在这儿，按钮还是一样能玩：喂一片橘子、扔个球。</p>
           </div>
         </div>
         <div class="pet__hud">
@@ -113,7 +102,7 @@
             <button type="button" class="pet__btn" id="pet-play">扔个球</button>
           </div>
         </div>
-        <p class="pet__tip" id="pet-tip">按住左右拖动可以转动它。可爱值只存在这台电脑上，不上报、不联网。</p>
+        <p class="pet__tip" id="pet-tip">点一下它会动。可爱值只存在这台电脑上，不上报、不联网。</p>
       </div>
     </div>
   </section>
