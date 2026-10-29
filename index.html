@@ -14,10 +14,7 @@
 
 <nav class="nav" id="nav" aria-label="页面导航">
   <div class="nav__inner">
-    <span class="nav__brand">
-      <img class="nav__capy" src="assets/capybara/head-48.webp" alt="" width="24" height="24" decoding="async" />
-      Hanson
-    </span>
+    <span class="nav__brand">Hanson</span>
     <ul class="nav__links">
       <li><a href="#capy-pet">水豚</a></li>
       <li><a href="#services">能提供什么</a></li>
@@ -70,27 +67,29 @@
         <p class="eyebrow">01</p>
         <h2>摸一下这只水豚</h2>
       </div>
-      <p class="lede reveal">一进首页就能看见它。点一下会跳，喂片橘子会嚼，扔个球它就晃一下顶回来；连着逗三次，它就凑到镜头前蹭你。</p>
+      <p class="lede reveal">一进首页就能看见它。点一下会跳，喂片橘子会嚼，扔个球它跑过去顶回来；连着逗三次，它就凑到镜头前蹭你。</p>
       <div class="pet reveal">
         <div class="pet__stage" id="pet-stage" role="img"
-               aria-label="一只站着的水豚照片，背景已抠干净：点一下它会动，能投喂橘子、陪它玩球，可爱值只存在这台电脑上">
-          <div class="pet__rig" id="pet-rig">
-            <span class="pet__shadow" aria-hidden="true"></span>
-            <img class="pet__photo" id="pet-photo" src="assets/capybara/stage-320.webp"
-                 alt="" width="320" height="304" decoding="async" />
-            <!-- 抠像后背景透明，脚下这层椭圆是照片外面的地面投影，不是图自带的 -->
-            <!-- 戳到位时眼睛变成 ^ ^：坐标是量着实拍图那只眼画的（viewBox 与图同尺寸 320×304） -->
-            <svg class="pet__face" viewBox="0 0 320 304" aria-hidden="true">
-              <path class="pet__eye" d="M232 50q9-13 18 0" />
-            </svg>
-            <span class="pet__crumb" aria-hidden="true"></span>
-            <span class="pet__ball" aria-hidden="true"></span>
-            <span class="pet__heart pet__heart--a" aria-hidden="true"></span>
-            <span class="pet__heart pet__heart--b" aria-hidden="true"></span>
-            <span class="pet__heart pet__heart--c" aria-hidden="true"></span>
-          </div>
+               aria-label="一只可以摸的 3D 水豚：点一下它会跳，能投喂橘子、陪它玩球，按住还能左右转动它；可爱值只存在这台电脑上">
+          <canvas class="pet__canvas" id="pet-canvas" width="640" height="360" aria-hidden="true"></canvas>
+          <span class="pet__heart pet__heart--a" aria-hidden="true"></span>
+          <span class="pet__heart pet__heart--b" aria-hidden="true"></span>
+          <span class="pet__heart pet__heart--c" aria-hidden="true"></span>
           <div class="pet__flat" id="pet-fallback" hidden>
-            <p>照片没加载出来。它平时就待在这儿，按钮还是一样能玩：喂一片橘子、扔个球。</p>
+            <!-- WebGL 拿不到时的静态侧影：几何体拼的，不是照片 -->
+            <svg class="pet__sil" viewBox="0 0 216 132" aria-hidden="true" focusable="false">
+              <ellipse cx="92" cy="70" rx="66" ry="34" />
+              <rect x="140" y="36" width="54" height="46" rx="9" />
+              <rect x="186" y="52" width="24" height="20" rx="6" />
+              <rect x="150" y="26" width="11" height="9" rx="3" />
+              <rect x="180" y="26" width="11" height="9" rx="3" />
+              <circle cx="184" cy="52" r="3.4" />
+              <rect x="44" y="96" width="15" height="26" rx="6" />
+              <rect x="74" y="100" width="15" height="22" rx="6" />
+              <rect x="112" y="98" width="15" height="24" rx="6" />
+              <rect x="134" y="100" width="15" height="22" rx="6" />
+            </svg>
+            <p>这台设备放不出 3D。它平时就待在这儿，按钮还是一样能玩：喂一片橘子、扔个球。</p>
           </div>
         </div>
         <div class="pet__hud">
@@ -103,7 +102,7 @@
             <button type="button" class="pet__btn" id="pet-play">扔个球</button>
           </div>
         </div>
-        <p class="pet__tip" id="pet-tip">点一下它会动。可爱值只存在这台电脑上，不上报、不联网。</p>
+        <p class="pet__tip" id="pet-tip">点一下它会跳，按住左右拖动可以转动它。可爱值只存在这台电脑上，不上报、不联网。</p>
       </div>
     </div>
   </section>
@@ -299,35 +298,61 @@ core</code></pre>
 <footer>
   <div class="wrap">
     <div class="signature">
-      <!-- 卡皮巴拉：实拍裁切（CC BY 2.0），点一下受惊 -->
-      <button class="capy" id="capy" type="button" aria-label="卡皮巴拉，点一下试试">
-        <img class="capy__photo" src="assets/capybara/head-vig-96.webp" alt="水豚头像" width="96" height="96" decoding="async" />
-        <svg class="capy__eyes-happy" viewBox="0 0 96 96" aria-hidden="true">
-          <!-- 实拍图是 3/4 侧脸，只画得到的那只眼：一条 ^ 弧压在眼睛上就够 -->
-          <path d="M24 36q7-9 14 0" />
-        </svg>
-        <span class="capy__hearts" aria-hidden="true">
-          <svg class="heart heart--a" viewBox="0 0 24 24"><path d="M12 21.2C9.6 19.4 2 14.4 2 9.1 2 5.9 4.3 4 7 4c2 0 3.8 1.1 5 3 1.2-1.9 3-3 5-3 2.7 0 5 1.9 5 5.1 0 5.3-7.6 10.3-10 12.1z"/></svg>
-          <svg class="heart heart--b" viewBox="0 0 24 24"><path d="M12 21.2C9.6 19.4 2 14.4 2 9.1 2 5.9 4.3 4 7 4c2 0 3.8 1.1 5 3 1.2-1.9 3-3 5-3 2.7 0 5 1.9 5 5.1 0 5.3-7.6 10.3-10 12.1z"/></svg>
-        </span>
-        <span class="capy__hint">点一下</span>
-      </button>
       <div class="signature__text">
         <p class="copy">© 2026 Hanson · 本页内容为个人技术能力介绍，不涉及任何在职公司信息。</p>
-        <p class="credit">
-          摄影：<a href="https://commons.wikimedia.org/wiki/File:Capybara_portrait.jpg" rel="noopener" target="_blank">Karoly Lorentey</a> ·
-          <a href="https://creativecommons.org/licenses/by/2.0" rel="license noopener" target="_blank">CC BY 2.0</a> ·
-          来源：Wikimedia Commons · File:Capybara portrait.jpg（已裁切、调色、压缩）
-        </p>
       </div>
     </div>
   </div>
 </footer>
 
 <div class="cursor-glow" id="glow" aria-hidden="true"></div>
-<script src="assets/vendor/motion.min.js" defer></script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/vendor/vanilla-tilt.min.js" defer></script>
 <script src="assets/motion.js" defer></script>
-<script src="assets/pet.js" defer></script>
+<script type="module">
+  /* 3D 水豚只在滚到它附近时才加载：three 与胶水都不进首屏关键路径。
+     加载失败（离线 / 文件缺失）就退回静态侧影，不白屏、不报错。 */
+  const stage = document.getElementById('pet-stage');
+  /* 3D 没起来：静态侧影兜底，两个按钮照样能加可爱值 */
+  const fail = () => {
+    const cv = document.getElementById('pet-canvas');
+    if (cv) cv.hidden = true;
+    document.getElementById('pet-fallback').hidden = false;
+    stage.classList.add('is-flat');
+    const KEY = 'capy.cute.v1';
+    const RANK = [[60, '家属'], [30, '常客'], [15, '朋友'], [5, '眼熟'], [0, '初识']];
+    const cuteEl = document.getElementById('pet-cute');
+    const levelEl = document.getElementById('pet-level');
+    let n = 0;
+    try { n = Math.min(99, parseInt(localStorage.getItem(KEY) || '0', 10) || 0); } catch (e) { n = 0; }
+    const paint = () => {
+      cuteEl.textContent = '可爱值 ' + n;
+      levelEl.textContent = RANK.find(([min]) => n >= min)[1];
+    };
+    const add = () => {
+      n = Math.min(99, n + 1);
+      try { localStorage.setItem(KEY, String(n)); } catch (e) { /* 隐私模式 */ }
+      paint();
+    };
+    paint();
+    document.getElementById('pet-feed').addEventListener('click', add);
+    document.getElementById('pet-play').addEventListener('click', add);
+    window.__pet = () => ({ mode: 'flat', reduce: matchMedia('(prefers-reduced-motion: reduce)').matches, ticking: false, cute: n });
+  };
+  const load = () => import('./assets/pet3d.js').catch(fail);
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) {
+        if (!e.isIntersecting) continue;
+        io.disconnect();
+        load();
+      }
+    }, { rootMargin: '200px' });
+    io.observe(stage);
+  } else {
+    load();
+  }
+</script>
 </body>
 </html>

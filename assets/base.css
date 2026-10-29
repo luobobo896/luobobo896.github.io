@@ -215,13 +215,6 @@ a {
   color: var(--text);
 }
 
-.nav__capy {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 /* 375 起就给导航：横向可滑，不再整段隐藏 */
 .nav__links {
   display: flex;
@@ -319,14 +312,10 @@ footer {
 
 .signature__text p { margin: 0; }
 
-.credit { max-width: 52ch; }
-
 .copy { margin-top: 8px; }
 
-.credit a { color: var(--muted); text-decoration: underline; }
 
 @media (hover: hover) {
-  .credit a:hover { color: var(--text); }
 }
 
 /* ══════════════════ 3. 排版 ══════════════════ */
@@ -471,124 +460,6 @@ p:last-child { margin-bottom: 0; }
   box-shadow: 0 0 0 3px var(--ok-ring);
 }
 
-/* ══════════════════ 5. 卡皮巴拉（吉祥物 · 实拍裁切） ══════════════════ */
-/* 实拍图取代手绘 SVG：鼻吻前突、耳小、身体横长这些「像水豚」的特征，照片天然成立。
-   只出现在页脚签名处，96px，不承担首屏主视觉。署名见 .credit（CC BY 2.0 要求）。 */
-.capy {
-  position: relative;
-  display: block;
-  flex: 0 0 auto;
-  width: 96px;
-  height: 96px;
-  margin: 0 0 12px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  color: inherit;
-  font: inherit;
-}
-
-.capy__photo {
-  width: 96px;
-  height: 96px;
-  border-radius: var(--r-md);
-  object-fit: cover;
-  filter: drop-shadow(0 10px 20px var(--sh-g));
-  transform-origin: 50% 92%;
-  transition: transform 0.5s var(--ease-out);
-}
-
-@media (hover: hover) {
-  .capy:hover .capy__photo { transform: translateY(-2px) scale(1.03); }
-}
-
-/* 受惊时眼睛变 ^ ^：叠在实拍图上的一层，只在这一瞬间出现 */
-.capy__eyes-happy {
-  position: absolute;
-  inset: 0;
-  width: 96px;
-  height: 96px;
-  stroke: var(--ink-invert);
-  stroke-width: 3.2;
-  stroke-linecap: round;
-  fill: none;
-  opacity: 0;
-  filter: drop-shadow(0 1px 2px var(--sh-e));
-  transition: opacity 0.12s linear;
-}
-
-/* 受惊：横向压扁 → 回弹，眼睛换成 ^ ^，冒两颗心 */
-.capy.is-poked .capy__photo { animation: poke 0.72s var(--ease-pop); }
-.capy.is-poked .capy__eyes-happy { opacity: 1; animation: happy 0.72s var(--ease-pop); }
-.capy.is-poked .capy__hearts { opacity: 1; }
-.capy.is-poked .heart--a { animation: heartUp 0.95s var(--ease-out) forwards; }
-.capy.is-poked .heart--b { animation: heartUp 0.95s var(--ease-out) 0.12s forwards; }
-
-.capy__hearts {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s linear;
-}
-
-.capy__hearts .heart {
-  position: absolute;
-  z-index: 3;
-  left: 54%;
-  bottom: 60%;
-  width: 14px;
-  height: 14px;
-  fill: var(--heart);
-  opacity: 0;
-  transform: translate3d(0, 0, 0) scale(0.5);
-}
-
-.capy__hearts .heart--b {
-  left: 72%;
-  bottom: 54%;
-  width: 10px;
-  height: 10px;
-  fill: var(--accent);
-}
-
-.capy__hint {
-  position: absolute;
-  left: 50%;
-  bottom: -20px;
-  margin: 0;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  opacity: 0;
-  transform: translate(-50%, 4px);
-  transition: opacity 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
-}
-
-@media (hover: hover) {
-  .capy:hover .capy__hint { opacity: 1; transform: translate(-50%, 0); }
-}
-
-@keyframes poke {
-  0% { transform: scale(1, 1); }
-  18% { transform: scale(1.07, 0.93) translateY(4px); }
-  42% { transform: scale(0.96, 1.05) translateY(-8px); }
-  68% { transform: scale(1.02, 0.99) translateY(0); }
-  100% { transform: scale(1, 1); }
-}
-
-@keyframes happy {
-  0% { transform: scale(0.9); opacity: 0; }
-  30% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes heartUp {
-  0% { transform: translate3d(0, 0, 0) scale(0.4); opacity: 0; }
-  22% { opacity: 1; }
-  100% { transform: translate3d(6px, -72px, 0) scale(1.05); opacity: 0; }
 }
 
 /* ══════════════════ 6. 组件 ══════════════════ */
@@ -1202,7 +1073,7 @@ ol.items li::before {
 @media (pointer: coarse) {
   .cursor-glow { display: none; }
   .card { transform: none; }
-  .hero__glow, .capy__photo { transform: none; }
+  .hero__glow { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1224,14 +1095,8 @@ ol.items li::before {
   .hero .stats,
   .reveal { opacity: 1 !important; transform: none !important; }
 
-  .capy__photo,
-  .capy__eyes-happy { animation: none !important; }
 
-  .capy__photo,
   .hero__glow { transform: none !important; }
-
-  /* 减弱动效下吉祥物保持可点，但只换眼睛，不做回弹 */
-  .capy.is-poked .capy__eyes-happy { opacity: 1; }
 }
 
 /* 老浏览器回退：不支持 color-mix 时不能整条声明失效（nav 会变全透明） */
@@ -1245,7 +1110,7 @@ ol.items li::before {
 }
 
 @media print {
-  .nav, .progress, .cursor-glow, .capy, .skip, .toc { display: none !important; }
+  .nav, .progress, .cursor-glow, .skip, .toc { display: none !important; }
   body { background: var(--print-bg); color: var(--print-ink); font-size: 12px; }
   .wrap { max-width: none; padding: 0; }
   section, .group { padding: 12px 0; margin: 0; }
@@ -1254,24 +1119,17 @@ ol.items li::before {
   a { color: var(--print-ink); text-decoration: underline; }
 }
 
-/* 01 · 水豚小宠物：抠像实拍图 + 类名驱动的小动作，零依赖零 vendor
- * 图是 assets/capybara/stage-320.webp（tools/cutout.swift 抠像 + tools/prep-capybara.py
- * 出片），320×304 带 alpha：背景是透明的，它落在这层舞台地面上，不是贴一张方图。
- * 原生 320 宽，不再放大——放大只会糊。眼睛叠层的 viewBox 与图同尺寸，图缩小弧跟着缩。
+/* 01 · 水豚小宠物：three.js 低模 + 自写 damp，滚到附近才动态加载
+ * canvas 铺满舞台，像素尺寸由 JS 按容器算、DPR 上限 2；爱心仍走 DOM 层，
+ * 它是贴屏的 2D 装饰，做进 3D 得额外贴图，不划算。
  */
 :root {
-  --pet-ball: #4f8f8f;
   --pet-heart: #d9736f;
-  --pet-orange: #e0853c;
-  --pet-eye: #fff4e6;
 }
 .pet { display: grid; gap: 18px; margin-top: 20px; max-width: 640px; }
 .pet__stage {
   position: relative;
-  display: grid;
-  place-items: center;
   min-height: 360px;
-  padding: 20px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
@@ -1279,105 +1137,39 @@ ol.items li::before {
     radial-gradient(120% 92% at 28% 4%, var(--warm), transparent 68%),
     var(--surface-2);
 }
-.pet__rig {
-  position: relative;
-  width: min(320px, 97%);
-  transform-origin: 50% 92%;
-}
-.pet__photo {
-  position: relative;
-  z-index: 1;
+.pet__canvas {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  transform-origin: 50% 92%;
-  animation: petBreath 4.6s ease-in-out infinite;
-}
-@media (prefers-color-scheme: dark) {
-  .pet__photo { filter: brightness(0.88) saturate(0.92); }
-}
-/* 地面投影：压在照片脚下的一层椭圆，图片自己不带阴影 */
-.pet__shadow {
-  position: absolute;
-  left: 50%;
-  bottom: -3%;
-  z-index: 0;
-  width: 72%;
-  height: 11%;
-  translate: -50% 0;
-  background: radial-gradient(closest-side, var(--sh-f) 30%, transparent 100%);
-  border-radius: 50%;
-  filter: blur(7px);
-}
-/* 眼睛叠层 / 渣子 / 球 / 爱心：都挂在照片左上角为原点，用百分比定位 */
-.pet__face,
-.pet__crumb,
-.pet__ball,
-.pet__heart { position: absolute; }
-.pet__face,
-.pet__crumb,
-.pet__ball,
-.pet__heart { z-index: 2; }
-.pet__face {
-  inset: 0;
-  width: 100%;
   height: 100%;
-  transform-origin: 50% 92%;
-  animation: petBreath 4.6s ease-in-out infinite;
+  cursor: grab;
+  touch-action: pan-y;
 }
-.pet__eye {
-  fill: none;
-  stroke: var(--pet-eye);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  opacity: 0;
-  transition: opacity 0.16s linear;
-}
-.pet__crumb {
-  left: 92.5%;
-  top: 30.3%;
-  width: 11px;
-  height: 8px;
-  margin: -4px 0 0 -6px;
-  border-radius: 44% 56% 40% 60%;
-  background: var(--pet-orange);
-  opacity: 0;
-  transition: opacity 0.2s linear;
-}
-.pet__ball {
-  left: 34%;
-  top: 89%;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, var(--sheen), transparent 46%),
-    var(--pet-ball);
-  opacity: 0;
-}
+.pet__canvas:active { cursor: grabbing; }
+.pet__canvas[hidden] { display: none; }
+/* 撒娇时飘的三颗心：贴屏 2D，落在舞台上 */
 .pet__heart {
+  position: absolute;
+  z-index: 2;
   width: 12px;
   height: 12px;
   margin: -6px 0 0 -6px;
   background: var(--pet-heart);
   opacity: 0;
   rotate: 45deg;
+  pointer-events: none;
 }
 .pet__heart::before,
 .pet__heart::after { content: ""; position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--pet-heart); }
 .pet__heart::before { left: -6px; }
 .pet__heart::after { top: -6px; }
-.pet__heart--a { left: 74%; top: 6%; }
-.pet__heart--b { left: 78.5%; top: 11%; }
-.pet__heart--c { left: 70%; top: 3%; }
-/* 播/停：离屏整棵树冻结，reduce 下不留任何动画。
- * 这里必须 !important：下面 .is-happy .pet__heart 的 animation 简写特异性更高，
- * 会把 play-state 一起重置回 running，普通声明压不住它。 */
-.pet__stage:not(.is-live) .pet__rig,
-.pet__stage:not(.is-live) .pet__rig * { animation-play-state: paused !important; }
-/* 照片没出来时不摆舞台：只剩文字说明 */
-.pet__stage.is-flat .pet__shadow { display: none; }
+.pet__heart--a { left: 68%; top: 26%; }
+.pet__heart--b { left: 74%; top: 20%; }
+.pet__heart--c { left: 63%; top: 18%; }
+.pet__stage.is-happy .pet__heart { animation: petHeartFloat 1.3s ease-out 1 forwards; }
+.pet__stage.is-happy .pet__heart--b { animation-delay: 0.16s; }
+.pet__stage.is-happy .pet__heart--c { animation-delay: 0.32s; }
 .pet__hud { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: flex-start; }
 .pet__cute { display: flex; gap: 10px; align-items: baseline; margin: 0; font-size: 16px; color: var(--text); }
 .pet__level { font-size: 14px; color: var(--muted); }
@@ -1396,48 +1188,22 @@ ol.items li::before {
 .pet__btn:hover { color: var(--accent-quiet); border-color: var(--accent); }
 .pet__btn:active { transform: translateY(1px); }
 .pet__tip { margin: 0; font-size: 14px; color: var(--muted); }
-.pet__flat { display: grid; gap: 12px; justify-items: center; padding: 24px; color: var(--muted); text-align: center; }
+/* WebGL 拿不到时：一行静态侧影 + 一句说明，不留空舞台 */
+.pet__flat { display: grid; gap: 14px; justify-items: center; padding: 26px 24px; color: var(--muted); text-align: center; }
 .pet__flat[hidden] { display: none; }
-/* 降级时不留空舞台 */
+.pet__flat p { max-width: 34ch; margin: 0; font-size: 14px; }
+.pet__sil { width: min(216px, 70%); height: auto; fill: currentColor; opacity: 0.42; }
 .pet__stage.is-flat { min-height: 0; }
-.pet__flat p { margin: 0; font-size: 14px; }
 
-/* 呼吸只改 scale/translate，4.6s；上下浮动 2px，不位移 */
-@keyframes petBreath { 0%, 100% { scale: 1; translate: 0 0; } 50% { scale: 1.02; translate: 0 -2px; } }
-@keyframes petHop { 0%, 100% { translate: 0 0; scale: 1; } 30% { translate: 0 -18px; } 58% { translate: 0 -24px; }
-  82% { translate: 0 0; scale: 1.03 0.97; } }
-@keyframes petSquash { 0%, 100% { scale: 1; } 34% { scale: 1.03 0.94; } 68% { scale: 0.99 1.01; } }
-@keyframes petSway { 0%, 100% { rotate: 0deg; } 24% { rotate: -2.2deg; } 58% { rotate: 1.6deg; } 82% { rotate: -0.6deg; } }
-@keyframes petBall { 0% { opacity: 0; translate: -30px -36px; scale: 0.8; } 20% { opacity: 1; }
-  44% { opacity: 1; translate: 0 0; scale: 1; } 58% { translate: 0 -18px; } 72% { translate: 0 0; }
-  100% { opacity: 0; translate: 26px -12px; scale: 0.9; } }
-@keyframes petCuddle { 0%, 100% { scale: 1; rotate: 0deg; } 42% { scale: 1.06; rotate: -1.4deg; }
-  72% { scale: 1.04; rotate: 1deg; } }
+/* 爱心是唯一还在 CSS 里的动画，其余都在 canvas 里 */
 @keyframes petHeartFloat { 0% { opacity: 0; translate: 0 0; scale: 0.6; }
   18% { opacity: 1; scale: 1; } 100% { opacity: 0; translate: 10px -46px; scale: 0.7; } }
 
-/* 弹跳/下压/轻晃都作用在 rig 上，照片和它的眼睛叠层一起动，弧不会跟头分家 */
-.pet__rig.is-poked { animation: petHop 0.62s cubic-bezier(0.2, 0.7, 0.3, 1) 1; }
-.pet__rig.is-chewing { animation: petSquash 1.1s ease-in-out 1; }
-.pet__rig.is-chewing .pet__crumb { opacity: 1; }
-.pet__rig.is-playing { animation: petSway 1.8s ease-in-out 1; }
-.pet__rig.is-playing .pet__ball { animation: petBall 1.7s ease-in-out 1; }
-.pet__rig.is-cuddling { animation: petCuddle 1.6s ease-in-out 1; }
-.pet__rig.is-happy .pet__eye { opacity: 1; }
-.pet__rig.is-happy .pet__heart { animation: petHeartFloat 1.3s ease-out 1 forwards; }
-.pet__rig.is-happy .pet__heart--b { animation-delay: 0.16s; }
-.pet__rig.is-happy .pet__heart--c { animation-delay: 0.32s; }
-
-/* 深色舞台上黑影等于黑上黑，反过来给一块极淡的亮面当地面，才看得出它落地了 */
-@media (prefers-color-scheme: dark) {
-  .pet__shadow { background: radial-gradient(closest-side, var(--on-dark-2) 30%, transparent 100%); }
-}
 @media (max-width: 40em) {
-  .pet__stage { min-height: 300px; padding: 14px 18px; }
+  .pet__stage { min-height: 300px; }
   .pet__actions { width: 100%; }
   .pet__btn { flex: 1 1 auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pet__rig,
-  .pet__rig * { animation: none !important; transition: none !important; }
+  .pet__heart { animation: none !important; }
 }
