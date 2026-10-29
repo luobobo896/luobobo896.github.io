@@ -1127,6 +1127,26 @@ ol.items li::before {
   --pet-heart: #d9736f;
 }
 .pet { display: grid; gap: 18px; margin-top: 20px; max-width: 640px; }
+/* 桌面两栏：文案在左、舞台 720 在右。.lede 与 .section__head 在 DOM 里是 .pet
+   的兄弟节点，所以栅格挂在 #capy-pet > .wrap 上，两栏与间距仍是要求的值；
+   窄屏（<64em）保持原来的单栏流式布局。 */
+@media (min-width: 64em) {
+  #capy-pet > .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 720px;
+    column-gap: 48px;
+    row-gap: 18px;
+    align-items: start;
+  }
+  /* .pet 用 display:contents 拆开，让舞台进右栏、HUD 跟文案一起留在左栏 */
+  #capy-pet .pet { display: contents; }
+  #capy-pet .section__head,
+  #capy-pet .lede,
+  #capy-pet .pet__hud { grid-column: 1; }
+  #capy-pet .lede { margin-top: 0; }
+  #capy-pet .pet__hud { align-self: end; }
+  #capy-pet .pet__stage { grid-column: 2; grid-row: 1 / span 3; min-height: 420px; align-self: center; }
+}
 .pet__stage {
   position: relative;
   min-height: 360px;
