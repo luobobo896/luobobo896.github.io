@@ -110,11 +110,15 @@
     capy.addEventListener("click", () => {
       capy.classList.add("is-poked");
       if (canAnimate && !reduce) {
-        M.animate(
-          capy,
-          { scale: [1, 1.06, 1] },
-          { duration: 0.6, easing: M.spring ? M.spring({ stiffness: 420, damping: 12 }) : EASE }
-        );
+        try {
+          M.animate(
+            capy,
+            { scale: [1, 1.06, 1] },
+            { duration: 0.62, easing: [0.34, 1.56, 0.64, 1] }
+          );
+        } catch (e) {
+          /* 库的行为变了也不能影响点击反馈：类已经加上了 */
+        }
       }
       clearTimeout(capy._t);
       capy._t = setTimeout(() => capy.classList.remove("is-poked"), 900);
