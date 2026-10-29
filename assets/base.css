@@ -358,6 +358,7 @@ p { margin: 0 0 16px; }
 p:last-child { margin-bottom: 0; }
 
 .lede {
+  text-wrap: balance;
   max-width: 42ch;
   margin: 0 0 28px;
   font-size: clamp(18px, 2vw, 24px);
@@ -788,7 +789,7 @@ ul.plain > li::before {
   gap: 4px 56px;
 }
 
-@media (min-width: 64em) {
+@media (min-width: 75em) {
   .works { grid-template-columns: 1fr 1fr; }
 }
 
@@ -823,8 +824,6 @@ ul.plain > li::before {
     gap: 12px;
     align-items: start;
   }
-
-  .term { width: 128px; }
 }
 
 .badge {
