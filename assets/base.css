@@ -411,7 +411,6 @@ p:last-child { margin-bottom: 0; }
   background: radial-gradient(circle at 50% 55%, var(--accent-soft), transparent 66%);
   filter: blur(10px);
   transition: transform 0.6s var(--ease-out), opacity 0.6s var(--ease-out);
-  will-change: transform;
 }
 
 .capy:hover .capy__aura { transform: scale(1.06); }
@@ -599,7 +598,6 @@ html.js .reveal { opacity: 0; }
   isolation: isolate;
   transform-style: preserve-3d;
   transition: box-shadow 0.4s var(--ease-soft), border-color 0.3s var(--ease-soft);
-  will-change: transform;
 }
 
 @media (hover: hover) {
@@ -610,13 +608,9 @@ html.js .reveal { opacity: 0; }
 }
 
 .card:active {
-  --lift: -2px;
+  /* 独立变换属性：与 VanillaTilt 写的 inline transform 复合，不会被覆盖 */
+  scale: 0.985;
   transition-duration: 0.12s;
-  transform:
-    perspective(900px)
-    rotateX(calc(var(--rx, 0deg) * 0.4))
-    rotateY(calc(var(--ry, 0deg) * 0.4))
-    translate3d(0, var(--lift, 0px), 0) scale(0.985);
 }
 
 /* 指针跟随的聚光，只在鼠标设备上亮相 */
@@ -1107,7 +1101,6 @@ ol.items li::before {
   mix-blend-mode: multiply;
   transform: translate3d(0, 0, 0);
   transition: opacity 0.4s var(--ease-soft);
-  will-change: transform;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1126,6 +1119,11 @@ ol.items li::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero__glow,
+  .capy > svg {
+    will-change: auto;
+  }
+
   html { scroll-behavior: auto; }
 
   *,

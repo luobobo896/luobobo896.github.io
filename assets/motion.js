@@ -142,8 +142,10 @@
           if (a) a.classList.add("is-active");
         });
       },
-      { rootMargin: "-20% 0px -70% 0px" }
+      { rootMargin: "-45% 0px -45% 0px" }
     );
     map.forEach((_, t) => io.observe(t));
+    /* 顶部第一屏可能没有任何小节落在中线带里：先点亮第一条，避免目录全灰 */
+    if (tocLinks[0]) tocLinks[0].classList.add("is-active");
   }
 })();
