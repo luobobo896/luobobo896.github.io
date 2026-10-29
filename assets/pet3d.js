@@ -109,8 +109,8 @@ function build() {
   skull.receiveShadow = true;
   head.add(skull);
 
-  const muzzle = new THREE.Mesh(roundedBox(0.62, 0.30, 0.30, 0.10), fur);
-  muzzle.position.set(0, -0.055, 0.32);
+  const muzzle = new THREE.Mesh(roundedBox(0.46, 0.30, 0.32, 0.11), fur);
+  muzzle.position.set(0, -0.10, 0.31);
   muzzle.castShadow = true;
   muzzle.receiveShadow = true;
   head.add(muzzle);
@@ -153,24 +153,24 @@ function build() {
   }
 
   /* 鼻头：吻部上缘的一块深色横垫 */
-  const nose = new THREE.Mesh(roundedBox(0.17, 0.055, 0.06, 0.018), darkMat);
-  nose.position.set(0, 0.055, 0.452);
-  nose.rotation.x = -0.30;
+  const nose = new THREE.Mesh(roundedBox(0.075, 0.10, 0.05, 0.018), darkMat);
+  nose.position.set(0, 0.005, 0.475);
+  nose.rotation.x = -0.22;
   head.add(nose);
 
   /* 嘴：鼻下一道浅浅的笑弧 */
-  const smile = new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.009, 6, 16, Math.PI), darkMat);
+  const smile = new THREE.Mesh(new THREE.TorusGeometry(0.042, 0.008, 6, 16, Math.PI), darkMat);
   smile.rotation.z = Math.PI;
-  smile.position.set(0, -0.10, 0.462);
+  smile.position.set(0, -0.10, 0.475);
   head.add(smile);
 
   /* 腮红：两颊，椭圆 */
   const blushMat = new THREE.MeshBasicMaterial({ color: 0xd98a7a, transparent: true, opacity: 0.30, depthWrite: false });
   for (const z of [-1, 1]) {
-    const blush = new THREE.Mesh(new THREE.CircleGeometry(0.05, 20), blushMat);
+    const blush = new THREE.Mesh(new THREE.CircleGeometry(0.045, 20), blushMat);
     blush.scale.set(1.3, 1, 1);
     blush.rotation.y = 0;
-    blush.position.set(z * 0.20, -0.06, 0.483);
+    blush.position.set(z * 0.21, -0.09, 0.43);
     head.add(blush);
   }
 
