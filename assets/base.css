@@ -1256,9 +1256,9 @@ ol.items li::before {
 
 /* 08 · 水豚小宠物：CSS 3D 分层（preserve-3d + 多层切片），零依赖零 vendor */
 :root {
-  --pet-fur: #b98a5e;
-  --pet-fur-shade: #93683f;
-  --pet-fur-light: #cfa377;
+  --pet-fur: #a68a68;
+  --pet-fur-shade: #82684a;
+  --pet-fur-light: #c0aa8a;
   --pet-muzzle: #d9b78f;
   --pet-ink: #2b1f18;
   --pet-orange: #e0853c;
@@ -1292,7 +1292,7 @@ ol.items li::before {
   width: 320px;
   height: 240px;
   transform-style: preserve-3d;
-  transform: rotateX(var(--pitch, 0deg)) rotateY(var(--yaw, 0deg)) scale(var(--pet-scale, 1.22));
+  transform: rotateX(var(--pitch, 0deg)) rotateY(var(--yaw, 0deg)) scale(var(--pet-scale, 1.22)) translateY(-42px);
   transition: transform 0.22s ease-out;
 }
 .pet__rig > *,
@@ -1337,10 +1337,10 @@ ol.items li::before {
   transform: translateZ(6px);
 }
 .pet__tail {
-  left: 22px;
-  top: 116px;
-  width: 24px;
-  height: 20px;
+  left: 30px;
+  top: 124px;
+  width: 12px;
+  height: 10px;
   border-radius: 50%;
   background: var(--pet-fur-shade);
   box-shadow: 0 0 0 2px var(--pet-ink);
@@ -1357,22 +1357,22 @@ ol.items li::before {
   left: 190px;
   top: 70px;
   width: 112px;
-  height: 96px;
-  border-radius: 42px 42px 32px 32px;
+  height: 92px;
+  border-radius: 34px 26px 30px 28px;
   background: linear-gradient(174deg, var(--pet-fur-light) 0%, var(--pet-fur-light) 46%, var(--pet-fur) 100%);
   box-shadow: 0 0 0 2px var(--pet-ink), inset 0 -10px 0 rgba(43, 31, 24, 0.09);
   transform: translateZ(18px);
   transition: rotate 0.28s ease-out;
 }
-.pet__ear { width: 24px; height: 19px; border-radius: 50% 50% 42% 42%; background: var(--pet-fur-shade); box-shadow: 0 0 0 2px var(--pet-ink); }
-.pet__ear--l { left: 8px; top: -9px; transform: translateZ(-6px); transform-origin: 50% 100%; animation: petEar 5.6s ease-in-out infinite; }
-.pet__ear--r { left: 55px; top: -11px; transform: translateZ(10px); }
+.pet__ear { width: 12px; height: 10px; border-radius: 50% 50% 42% 42%; background: var(--pet-fur); box-shadow: 0 0 0 2px var(--pet-ink); }
+.pet__ear--l { left: 26px; top: -4px; transform: translateZ(-6px); transform-origin: 50% 100%; animation: petEar 5.6s ease-in-out infinite; }
+.pet__ear--r { left: 68px; top: -6px; transform: translateZ(10px); }
 .pet__muzzle {
-  left: 20px;
+  left: -6px;
   top: 50px;
-  width: 68px;
-  height: 38px;
-  border-radius: 24px 28px 20px 20px;
+  width: 76px;
+  height: 48px;
+  border-radius: 16px 26px 18px 18px;
   background: linear-gradient(172deg, var(--pet-muzzle) 0%, var(--pet-fur-light) 100%);
   box-shadow: 0 0 0 2px var(--pet-ink);
   transform: translateZ(26px);
@@ -1423,8 +1423,8 @@ ol.items li::before {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.75);
 }
-.pet__eye--l { left: 30px; top: 28px; }
-.pet__eye--r { left: 62px; top: 26px; animation-delay: 0.06s; }
+.pet__eye--l { left: 58px; top: 20px; }
+.pet__eye--r { left: 82px; top: 18px; animation-delay: 0.06s; }
 .pet__cheek {
   left: 14px;
   top: 54px;
@@ -1479,10 +1479,10 @@ ol.items li::before {
 /* 播/停：离屏整棵树冻结，reduce 下不留任何动画 */
 .pet__stage:not(.is-live) .pet__rig,
 .pet__stage:not(.is-live) .pet__rig * { animation-play-state: paused; }
-.pet__hud { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; }
+.pet__hud { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: flex-start; }
 .pet__cute { display: flex; gap: 10px; align-items: baseline; margin: 0; font-size: 16px; color: var(--text); }
 .pet__level { font-size: 14px; color: var(--muted); }
-.pet__actions { display: flex; gap: 10px; margin-left: auto; }
+.pet__actions { display: flex; gap: 10px; }
 .pet__btn {
   min-height: 44px;
   padding: 0 18px;
@@ -1541,4 +1541,9 @@ ol.items li::before {
 @media (prefers-reduced-motion: reduce) {
   .pet__rig,
   .pet__rig * { animation: none !important; transition: none !important; }
+}
+
+/* 暗色下 2px 描边要提亮，否则和 #0b0b0d 底对比只有 1.22:1 */
+@media (prefers-color-scheme: dark) {
+  :root { --pet-ink: #6b6157; }
 }
