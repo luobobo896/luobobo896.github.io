@@ -63,12 +63,66 @@
       </div>
     </div>
   </header>
+  <section id="capy-pet">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">01</p>
+        <h2>摸一下这只水豚</h2>
+      </div>
+      <p class="lede reveal">一进首页就能看见它。点一下会跳，喂片橘子会嚼，扔个球它小跑着顶回来；连着逗三次，它就凑到镜头前蹭你。</p>
+      <div class="pet reveal">
+        <div class="pet__stage" id="pet-stage" role="img"
+               aria-label="一只可以摸的 3D 水豚：点一下会跳，能投喂橘子、陪它玩球，也可以按住左右拖动转动它">
+          <div class="pet__scene">
+            <div class="pet__rig" id="pet-rig">
+              <span class="pet__shadow" aria-hidden="true"></span>
+              <span class="pet__tail" aria-hidden="true"></span>
+              <span class="pet__leg pet__leg--bl" aria-hidden="true"></span>
+              <span class="pet__leg pet__leg--br" aria-hidden="true"></span>
+              <span class="pet__leg pet__leg--fl" aria-hidden="true"></span>
+              <span class="pet__leg pet__leg--fr" aria-hidden="true"></span>
+              <span class="pet__body" aria-hidden="true"></span>
+              <div class="pet__head" aria-hidden="true">
+                <span class="pet__ear pet__ear--l"></span>
+                <span class="pet__ear pet__ear--r"></span>
+                <span class="pet__muzzle"></span>
+                <span class="pet__cheek"></span>
+                <span class="pet__eye pet__eye--l"></span>
+                <span class="pet__eye pet__eye--r"></span>
+                <span class="pet__crumb"></span>
+              </div>
+              <span class="pet__orange" aria-hidden="true"></span>
+              <span class="pet__ball" aria-hidden="true"></span>
+              <span class="pet__heart pet__heart--a" aria-hidden="true"></span>
+              <span class="pet__heart pet__heart--b" aria-hidden="true"></span>
+              <span class="pet__heart pet__heart--c" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="pet__flat" id="pet-fallback" hidden>
+            <img src="assets/capybara/head-vig-96.webp" alt="水豚" width="96" height="96" decoding="async" />
+            <p>这台设备放不出 3D，水豚就在这儿趴着，按钮一样能玩。</p>
+          </div>
+        </div>
+        <div class="pet__hud">
+          <p class="pet__cute">
+            <span aria-live="polite" id="pet-cute">可爱值 0</span>
+            <span class="pet__level" id="pet-level">初识</span>
+          </p>
+          <div class="pet__actions">
+            <button type="button" class="pet__btn" id="pet-feed">喂一片橘子</button>
+            <button type="button" class="pet__btn" id="pet-play">扔个球</button>
+          </div>
+        </div>
+        <p class="pet__tip" id="pet-tip">按住左右拖动可以转动它。可爱值只存在这台电脑上，不上报、不联网。</p>
+      </div>
+    </div>
+  </section>
 
   <!-- ── 能提供什么 ─────────────────────────────────────── -->
   <section id="services">
     <div class="wrap wrap--wide">
       <div class="section__head reveal">
-        <p class="eyebrow">01</p>
+        <p class="eyebrow">02</p>
         <h2>能提供什么</h2>
       </div>
       <div class="grid">
@@ -95,7 +149,7 @@
   <section id="stack">
     <div class="wrap wrap--wide">
       <div class="section__head reveal">
-        <p class="eyebrow">02</p>
+        <p class="eyebrow">03</p>
         <h2>技术栈</h2>
       </div>
       <div class="stack reveal">
@@ -112,7 +166,7 @@
   <section id="works">
     <div class="wrap wrap--wide">
       <div class="section__head reveal">
-        <p class="eyebrow">03</p>
+        <p class="eyebrow">04</p>
         <h2>做过的东西</h2>
       </div>
       <ul class="plain reveal works">
@@ -173,7 +227,7 @@ core</code></pre>
   <section id="tools">
     <div class="wrap wrap--wide">
       <div class="section__head reveal">
-        <p class="eyebrow">04</p>
+        <p class="eyebrow">05</p>
         <h2>可以直接拿去用的</h2>
       </div>
       <ul class="plain reveal">
@@ -189,7 +243,7 @@ core</code></pre>
   <section id="writing">
     <div class="wrap wrap--wide">
       <div class="section__head reveal">
-        <p class="eyebrow">05</p>
+        <p class="eyebrow">06</p>
         <h2>写过的文章</h2>
       </div>
       <ul class="plain reveal">
@@ -213,7 +267,7 @@ core</code></pre>
   <section id="downloads">
     <div class="wrap wrap--wide">
       <div class="section__head reveal">
-        <p class="eyebrow">06</p>
+        <p class="eyebrow">07</p>
         <h2>资料下载</h2>
       </div>
       <ul class="plain reveal">
@@ -237,7 +291,7 @@ core</code></pre>
   <section id="contact">
     <div class="wrap wrap--wide">
       <div class="cta reveal">
-        <p class="eyebrow">07</p>
+        <p class="eyebrow">08</p>
         <h2>联系</h2>
         <p class="lede">有线上问题要救、有模块要外包、或者想先看看知识库 demo，直接找我就行。</p>
         <ul class="links">
@@ -249,60 +303,6 @@ core</code></pre>
     </div>
   </section>
 
-  <section id="capy-pet">
-    <div class="wrap">
-      <div class="section__head reveal">
-        <p class="eyebrow">08</p>
-        <h2>摸一下这只水豚</h2>
-      </div>
-      <p class="lede reveal">它住在这一页的最下面。点一下会跳，喂片橘子会嚼，扔个球它小跑着顶回来；连着逗三次，它就凑到镜头前蹭你。</p>
-      <div class="pet reveal">
-        <div class="pet__stage" id="pet-stage" role="img"
-               aria-label="一只可以摸的 3D 水豚：点一下会跳，能投喂橘子、陪它玩球，也可以按住左右拖动转动它">
-          <div class="pet__scene">
-            <div class="pet__rig" id="pet-rig">
-              <span class="pet__shadow" aria-hidden="true"></span>
-              <span class="pet__tail" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--bl" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--br" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--fl" aria-hidden="true"></span>
-              <span class="pet__leg pet__leg--fr" aria-hidden="true"></span>
-              <span class="pet__body" aria-hidden="true"></span>
-              <div class="pet__head" aria-hidden="true">
-                <span class="pet__ear pet__ear--l"></span>
-                <span class="pet__ear pet__ear--r"></span>
-                <span class="pet__muzzle"></span>
-                <span class="pet__cheek"></span>
-                <span class="pet__eye pet__eye--l"></span>
-                <span class="pet__eye pet__eye--r"></span>
-                <span class="pet__crumb"></span>
-              </div>
-              <span class="pet__orange" aria-hidden="true"></span>
-              <span class="pet__ball" aria-hidden="true"></span>
-              <span class="pet__heart pet__heart--a" aria-hidden="true"></span>
-              <span class="pet__heart pet__heart--b" aria-hidden="true"></span>
-              <span class="pet__heart pet__heart--c" aria-hidden="true"></span>
-            </div>
-          </div>
-          <div class="pet__flat" id="pet-fallback" hidden>
-            <img src="assets/capybara/head-vig-96.webp" alt="水豚" width="96" height="96" decoding="async" />
-            <p>这台设备放不出 3D，水豚就在这儿趴着，按钮一样能玩。</p>
-          </div>
-        </div>
-        <div class="pet__hud">
-          <p class="pet__cute">
-            <span aria-live="polite" id="pet-cute">可爱值 0</span>
-            <span class="pet__level" id="pet-level">初识</span>
-          </p>
-          <div class="pet__actions">
-            <button type="button" class="pet__btn" id="pet-feed">喂一片橘子</button>
-            <button type="button" class="pet__btn" id="pet-play">扔个球</button>
-          </div>
-        </div>
-        <p class="pet__tip" id="pet-tip">按住左右拖动可以转动它。可爱值只存在这台电脑上，不上报、不联网。</p>
-      </div>
-    </div>
-  </section>
 
 </main>
 
