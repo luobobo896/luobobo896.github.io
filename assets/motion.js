@@ -17,12 +17,12 @@
     });
   };
 
-  /* 1. 首屏入场 */
+  /* 1. 首屏入场（Motion 的时间单位是秒：stagger(0.06) 不是 60） */
   if (canAnimate && !reduce) {
     M.animate(
-      ".hero__eyebrow, .hero h1, .hero__lede, .hero__tags li, .capy",
+      ".hero__meta, .hero__copy h1, .hero__copy .lede, .hero__copy .tag, .capy",
       { opacity: [0, 1], y: [22, 0] },
-      { delay: M.stagger(70), duration: 0.75, easing: EASE }
+      { delay: M.stagger(0.06), duration: 0.7, easing: EASE }
     );
   }
 
