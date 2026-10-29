@@ -1253,3 +1253,292 @@ ol.items li::before {
   .note, .card, .cta { box-shadow: none; break-inside: avoid; }
   a { color: var(--print-ink); text-decoration: underline; }
 }
+
+/* 08 · 水豚小宠物：CSS 3D 分层（preserve-3d + 多层切片），零依赖零 vendor */
+:root {
+  --pet-fur: #b98a5e;
+  --pet-fur-shade: #93683f;
+  --pet-fur-light: #cfa377;
+  --pet-muzzle: #d9b78f;
+  --pet-ink: #2b1f18;
+  --pet-orange: #e0853c;
+  --pet-ball: #4f8f8f;
+  --pet-heart: #d9736f;
+  --pet-ground: rgba(43, 31, 24, 0.16);
+}
+.pet { display: grid; gap: 18px; margin-top: 20px; }
+.pet__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  padding: 20px 20px 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(120% 92% at 28% 4%, var(--warm), transparent 68%),
+    var(--surface-2);
+}
+.pet__scene {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  perspective: 900px;
+  perspective-origin: 50% 44%;
+}
+.pet__rig {
+  position: relative;
+  width: 320px;
+  height: 240px;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--pitch, 0deg)) rotateY(var(--yaw, 0deg)) scale(var(--pet-scale, 1.22));
+  transition: transform 0.22s ease-out;
+}
+.pet__rig > *,
+.pet__head > * { position: absolute; }
+/* 投影：贴地的软椭圆，跳起来会缩 */
+.pet__shadow {
+  left: 56px;
+  top: 204px;
+  width: 212px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--pet-ground), transparent 78%);
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+/* 身体：两块错开 Z 的圆角片，转动时能看出厚度 */
+.pet__body {
+  left: 44px;
+  top: 94px;
+  width: 178px;
+  height: 106px;
+  border-radius: 52px 46px 42px 50px;
+  background:
+    linear-gradient(176deg, var(--pet-fur-light) 0%, var(--pet-fur) 44%, var(--pet-fur-shade) 100%);
+  box-shadow:
+    0 0 0 2px var(--pet-ink),
+    inset -18px -8px 22px -14px rgba(43, 31, 24, 0.45),
+    inset 0 -14px 18px -12px rgba(43, 31, 24, 0.28),
+    inset 0 10px 0 rgba(255, 255, 255, 0.16);
+  transform: translateZ(0);
+  animation: petBreath 4.6s ease-in-out infinite;
+}
+.pet__body::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  width: 96px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--pet-fur-light);
+  opacity: 0.5;
+  transform: translateZ(6px);
+}
+.pet__tail {
+  left: 22px;
+  top: 116px;
+  width: 24px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pet-fur-shade);
+  box-shadow: 0 0 0 2px var(--pet-ink);
+  transform: translateZ(-10px);
+  transform-origin: 90% 50%;
+  animation: petTail 3.4s ease-in-out infinite;
+}
+.pet__leg { width: 28px; height: 48px; border-radius: 15px; background: var(--pet-fur-shade); box-shadow: 0 0 0 2px var(--pet-ink); }
+.pet__leg--bl { left: 66px; top: 172px; transform: translateZ(-18px); }
+.pet__leg--fl { left: 170px; top: 176px; transform: translateZ(-10px); }
+.pet__leg--br { left: 88px; top: 176px; transform: translateZ(-24px); background: var(--pet-fur); }
+.pet__leg--fr { left: 194px; top: 180px; transform: translateZ(-16px); background: var(--pet-fur); }
+.pet__head {
+  left: 190px;
+  top: 70px;
+  width: 112px;
+  height: 96px;
+  border-radius: 42px 42px 32px 32px;
+  background: linear-gradient(174deg, var(--pet-fur-light) 0%, var(--pet-fur-light) 46%, var(--pet-fur) 100%);
+  box-shadow: 0 0 0 2px var(--pet-ink), inset 0 -10px 0 rgba(43, 31, 24, 0.09);
+  transform: translateZ(18px);
+  transition: rotate 0.28s ease-out;
+}
+.pet__ear { width: 24px; height: 19px; border-radius: 50% 50% 42% 42%; background: var(--pet-fur-shade); box-shadow: 0 0 0 2px var(--pet-ink); }
+.pet__ear--l { left: 8px; top: -9px; transform: translateZ(-6px); transform-origin: 50% 100%; animation: petEar 5.6s ease-in-out infinite; }
+.pet__ear--r { left: 55px; top: -11px; transform: translateZ(10px); }
+.pet__muzzle {
+  left: 20px;
+  top: 50px;
+  width: 68px;
+  height: 38px;
+  border-radius: 24px 28px 20px 20px;
+  background: linear-gradient(172deg, var(--pet-muzzle) 0%, var(--pet-fur-light) 100%);
+  box-shadow: 0 0 0 2px var(--pet-ink);
+  transform: translateZ(26px);
+}
+/* 鼻子：一块压扁的深色垫，两个鼻孔用径向渐变 */
+.pet__muzzle::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 3px;
+  width: 19px;
+  height: 10px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 28% 50%, var(--pet-ink) 2px, transparent 2.4px),
+    radial-gradient(circle at 72% 50%, var(--pet-ink) 2px, transparent 2.4px);
+  opacity: 0.85;
+}
+/* 嘴：一条向下的小弧 */
+.pet__muzzle::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 12px;
+  width: 19px;
+  height: 11px;
+  border-bottom: 2px solid var(--pet-ink);
+  border-radius: 0 0 10px 10px;
+  opacity: 0.5;
+}
+.pet__eye {
+  width: 11px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pet-ink);
+  transform: translateZ(30px);
+  transform-origin: 50% 50%;
+  animation: petBlink 5.4s ease-in-out infinite;
+}
+/* 高光：让眼睛有神 */
+.pet__eye::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+}
+.pet__eye--l { left: 30px; top: 28px; }
+.pet__eye--r { left: 62px; top: 26px; animation-delay: 0.06s; }
+.pet__cheek {
+  left: 14px;
+  top: 54px;
+  width: 22px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pet-heart);
+  opacity: 0.22;
+  transform: translateZ(29px);
+}
+.pet__crumb {
+  left: 78px;
+  top: 82px;
+  width: 12px;
+  height: 9px;
+  border-radius: 44% 56% 40% 60%;
+  background: var(--pet-orange);
+  opacity: 0;
+  transform: translateZ(32px);
+  transition: opacity 0.2s linear;
+}
+.pet__orange {
+  left: 246px;
+  top: 128px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, var(--pet-fur-light), var(--pet-orange) 62%);
+  box-shadow: 0 0 0 2px var(--pet-ink);
+  opacity: 0;
+  transform: translateZ(28px);
+}
+.pet__ball {
+  left: 196px;
+  top: 190px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, var(--pet-fur-light), var(--pet-ball) 68%);
+  box-shadow: 0 0 0 2px var(--pet-ink);
+  opacity: 0;
+  transform: translateZ(6px);
+}
+.pet__heart { width: 12px; height: 12px; background: var(--pet-heart); opacity: 0; transform: rotate(45deg) translateZ(24px); }
+.pet__heart::before,
+.pet__heart::after { content: ""; position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--pet-heart); }
+.pet__heart::before { left: -6px; }
+.pet__heart::after { top: -6px; }
+.pet__heart--a { left: 252px; top: 40px; }
+.pet__heart--b { left: 276px; top: 56px; }
+.pet__heart--c { left: 226px; top: 26px; }
+/* 播/停：离屏整棵树冻结，reduce 下不留任何动画 */
+.pet__stage:not(.is-live) .pet__rig,
+.pet__stage:not(.is-live) .pet__rig * { animation-play-state: paused; }
+.pet__hud { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; }
+.pet__cute { display: flex; gap: 10px; align-items: baseline; margin: 0; font-size: 16px; color: var(--text); }
+.pet__level { font-size: 14px; color: var(--muted); }
+.pet__actions { display: flex; gap: 10px; margin-left: auto; }
+.pet__btn {
+  min-height: 44px;
+  padding: 0 18px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--text);
+  cursor: pointer;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+}
+.pet__btn:hover { color: var(--accent-quiet); border-color: var(--accent); }
+.pet__btn:active { transform: translateY(1px); }
+.pet__tip { margin: 0; font-size: 14px; color: var(--muted); }
+.pet__flat { display: grid; gap: 12px; justify-items: center; padding: 24px; color: var(--muted); text-align: center; }
+.pet__flat[hidden] { display: none; }
+/* 降级时不留空舞台 */
+.pet__stage.is-flat { min-height: 0; }
+.pet__flat p { margin: 0; font-size: 14px; }
+.pet__flat img { border-radius: 50%; }
+
+@keyframes petBreath { 0%, 100% { scale: 1 1; } 50% { scale: 1.012 1.03; } }
+@keyframes petTail { 0%, 100% { rotate: 0deg; } 50% { rotate: -12deg; } }
+@keyframes petEar { 0%, 92%, 100% { rotate: 0deg; } 95% { rotate: -14deg; } }
+@keyframes petBlink { 0%, 92%, 100% { scale: 1 1; } 95% { scale: 1 0.12; } }
+@keyframes petHop { 0%, 100% { translate: 0 0; } 34% { translate: 0 -20px; } 62% { translate: 0 -26px; } }
+@keyframes petChew { 0%, 100% { rotate: 0deg; } 50% { rotate: -5deg; } }
+@keyframes petRun { 0%, 100% { translate: 0 0; } 40% { translate: 12px 0; } 70% { translate: 20px 0; } }
+@keyframes petBall { 0% { opacity: 0; translate: -30px -30px; } 18% { opacity: 1; translate: -14px -44px; }
+  46% { opacity: 1; translate: 6px 0; } 62% { opacity: 1; translate: -6px -18px; } 100% { opacity: 0; translate: -34px -6px; } }
+@keyframes petFeedOrange { 0% { opacity: 0; translate: 0 -14px; } 22% { opacity: 1; } 74% { opacity: 1; translate: -150px 6px; } 100% { opacity: 0; translate: -164px 4px; } }
+@keyframes petCuddle { 0%, 100% { scale: 1; translate: 0 0; } 42% { scale: 1.13; translate: 0 8px; } 72% { scale: 1.09; translate: 0 5px; } }
+@keyframes petHeartFloat { 0% { opacity: 0; translate: 0 0; scale: 0.6; }
+  18% { opacity: 1; scale: 1; } 100% { opacity: 0; translate: 12px -54px; scale: 0.7; } }
+
+.pet__rig.is-poked { animation: petHop 0.62s cubic-bezier(0.2, 0.7, 0.3, 1) 1; }
+.pet__rig.is-poked .pet__shadow { transform: scale(0.82); opacity: 0.7; }
+.pet__rig.is-chewing .pet__head { animation: petChew 0.3s ease-in-out 5; }
+.pet__rig.is-chewing .pet__orange { animation: petFeedOrange 1.5s ease-out 1 forwards; }
+.pet__rig.is-chewing .pet__crumb { opacity: 1; }
+.pet__rig.is-playing { animation: petRun 1.8s ease-in-out 1; }
+.pet__rig.is-playing .pet__ball { animation: petBall 1.7s ease-in-out 1; }
+.pet__rig.is-cuddling { animation: petCuddle 1.6s ease-in-out 1; }
+.pet__rig.is-happy .pet__eye { height: 7px; border-radius: 8px 8px 0 0; background: none; border-top: 4px solid var(--pet-ink); animation: none; }
+.pet__rig.is-happy .pet__heart { animation: petHeartFloat 1.3s ease-out 1 forwards; }
+.pet__rig.is-happy .pet__heart--b { animation-delay: 0.16s; }
+.pet__rig.is-happy .pet__heart--c { animation-delay: 0.32s; }
+
+@media (max-width: 40em) {
+  .pet__stage { min-height: 300px; padding: 14px 10px 6px; }
+  .pet__rig { --pet-scale: 0.88; }
+  .pet__rig { width: 260px; height: 210px; scale: 0.92; }
+  .pet__actions { width: 100%; margin-left: 0; }
+  .pet__btn { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pet__rig,
+  .pet__rig * { animation: none !important; transition: none !important; }
+}
