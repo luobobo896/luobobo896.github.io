@@ -1281,7 +1281,7 @@ ol.items li::before {
 }
 .pet__rig {
   position: relative;
-  width: min(320px, 100%);
+  width: min(320px, 97%);
   transform-origin: 50% 92%;
 }
 .pet__photo {
@@ -1292,6 +1292,9 @@ ol.items li::before {
   height: auto;
   transform-origin: 50% 92%;
   animation: petBreath 4.6s ease-in-out infinite;
+}
+@media (prefers-color-scheme: dark) {
+  .pet__photo { filter: brightness(0.88) saturate(0.92); }
 }
 /* 地面投影：压在照片脚下的一层椭圆，图片自己不带阴影 */
 .pet__shadow {
@@ -1430,7 +1433,7 @@ ol.items li::before {
   .pet__shadow { background: radial-gradient(closest-side, var(--on-dark-2) 30%, transparent 100%); }
 }
 @media (max-width: 40em) {
-  .pet__stage { min-height: 300px; padding: 14px 12px; }
+  .pet__stage { min-height: 300px; padding: 14px 18px; }
   .pet__actions { width: 100%; }
   .pet__btn { flex: 1 1 auto; }
 }
