@@ -56,10 +56,10 @@ const pointer = { x: 0, y: 0 };
 let dragging = false, dragged = false, downX = 0, downY = 0, downT = 0, yawStart = 0, targetYaw = 0;
 const dark = matchMedia('(prefers-color-scheme: dark)');
 
-const MOUTH = new THREE.Vector3(0.96, 0.72, 0);
+const MOUTH = new THREE.Vector3(0, 0.555, 0.545);
 const ORANGE_FROM = { x: 1.6, y: 1.2, z: 1.0 };
 const BALL_FROM = { x: 1.2, y: 1.0, z: 2.4 };
-const BALL_LAND = { x: 0.68, y: 0.105, z: 0.5 };
+const BALL_LAND = { x: 0.34, y: 0.105, z: 0.62 };
 const BALL_OUT = { x: 1.94, z: 0.02 };
 
 /* ---------- 几何：长方体 + 轻微 bevel（core 里没有 RoundedBoxGeometry） ---------- */
@@ -83,89 +83,117 @@ const material = (color, roughness = 0.85) => new THREE.MeshStandardMaterial({ c
 
 /* ---------- 建模 ---------- */
 function build() {
-  const fur = material(0xa98863);
-  const muzzleMat = material(0xc0a07d);
-  const belly = material(0xb1936f);
+  const fur = material(0xa37e56);
+  const bellyMat = material(0x8f6c4a);
   const darkMat = material(0x241f1a, 0.6);
 
   root = new THREE.Group();
 
-  /* 身体：横躺椭球；下半个是腹部色，上半个盖毛色，侧看才有肚皮 */
-  body = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 20), belly);
-  body.scale.set(0.60, 0.325, 0.415);
-  body.position.set(-0.02, 0.335, 0);
+  /* 身体：坐姿的圆角方体，前低后高，头直接压上去 —— 不再用挤出件做身体 */
+  body = new THREE.Mesh(roundedBox(0.86, 0.56, 0.54, 0.20), fur);
+  body.position.set(0, 0.30, 0);
+  body.castShadow = true;
   body.receiveShadow = true;
   root.add(body);
 
-  const back = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 20), fur);
-  back.scale.set(0.665, 0.355, 0.452);
-  back.position.set(-0.02, 0.44, 0);
-  back.castShadow = true;
-  back.receiveShadow = true;
-  root.add(back);
-
-  /* 粗短脖子：塞在身体与头之间，头才不像飘着 */
-  const neck = new THREE.Mesh(roundedBox(0.30, 0.40, 0.42, 0.10), fur);
-  neck.position.set(0.44, 0.57, 0);
-  neck.castShadow = true;
-  root.add(neck);
-
-  /* 头：方头（1.15 : 1 : 0.95），不是球 */
+  /* 头：正脸朝镜头。侧面轮廓挤出转成正脸后，脸是一块平面、下颌往后缩，
+     鼻子和嘴没地方放（两版截图都是「两眼之间一根黑条」），所以头改圆角体块：
+     颅骨 + 一块又宽又钝的吻部（水豚的识别特征全在这块吻上）。 */
   head = new THREE.Group();
-  head.position.set(0.50, 0.705, 0);
-  const skull = new THREE.Mesh(roundedBox(0.60, 0.52, 0.50, 0.07), fur);
+  head.position.set(0, 0.60, 0.02);
+  root.add(head);
+
+  const skull = new THREE.Mesh(roundedBox(0.68, 0.50, 0.60, 0.19), fur);
+  skull.position.set(0, 0.12, 0);
   skull.castShadow = true;
   skull.receiveShadow = true;
   head.add(skull);
 
-  /* 吻：更窄的一块向前探 0.18 */
-  const muzzle = new THREE.Mesh(roundedBox(0.26, 0.25, 0.33, 0.055), muzzleMat);
-  muzzle.position.set(0.41, -0.07, 0);
+  const muzzle = new THREE.Mesh(roundedBox(0.62, 0.30, 0.30, 0.10), fur);
+  muzzle.position.set(0, -0.055, 0.32);
   muzzle.castShadow = true;
+  muzzle.receiveShadow = true;
   head.add(muzzle);
 
-  const nose = new THREE.Mesh(roundedBox(0.05, 0.06, 0.15, 0.02), darkMat);
-  nose.position.set(0.535, 0.0, 0);
-  head.add(nose);
-
-  /* 耳朵：极小，贴头顶两角 */
+  /* 耳朵：头顶左右两角的小耳瓣 */
   for (const z of [-1, 1]) {
-    const ear = new THREE.Mesh(roundedBox(0.10, 0.08, 0.07, 0.028), fur);
-    ear.position.set(-0.20, 0.29, z * 0.19);
-    ear.rotation.z = -0.12;
-    ear.castShadow = true;
+    const ear = new THREE.Group();
+    const shell = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 12), fur);
+    shell.scale.set(1, 0.72, 0.5);
+    shell.castShadow = true;
+    ear.add(shell);
+    const inner = new THREE.Mesh(new THREE.SphereGeometry(0.036, 14, 10), bellyMat);
+    inner.scale.set(1, 0.72, 0.4);
+    inner.position.z = 0.006;
+    ear.add(inner);
+    ear.position.set(z * 0.235, 0.375, -0.12);
+    ear.rotation.z = -z * 0.2;
     head.add(ear);
     ears.push(ear);
   }
 
-  /* 眼睛：小而高，靠头两侧；开心时切成 ^ ^ 弧 */
+  /* 眼睛：球体 + 高光，开心时整组换成 ^ ^ 弧 */
+  const glintMat = new THREE.MeshBasicMaterial({ color: 0xf7f2ea });
   for (const z of [-1, 1]) {
-    const open = new THREE.Mesh(new THREE.SphereGeometry(0.038, 16, 12), darkMat);
-    open.position.set(0.25, 0.135, z * 0.244);
-    head.add(open);
-    eyesOpen.push(open);
-    eyeScales.push(open.scale);
+    const eye = new THREE.Group();
+    eye.add(new THREE.Mesh(new THREE.SphereGeometry(0.042, 20, 16), darkMat));
+    const glint = new THREE.Mesh(new THREE.SphereGeometry(0.013, 10, 8), glintMat);
+    glint.position.set(0.013, 0.015, 0.038);
+    eye.add(glint);
+    eye.position.set(z * 0.20, 0.215, 0.315);
+    head.add(eye);
+    eyesOpen.push(eye);
+    eyeScales.push(eye.scale);
 
-    const happy = new THREE.Mesh(new THREE.TorusGeometry(0.036, 0.010, 6, 14, Math.PI), darkMat);
-    happy.position.copy(open.position);
-    happy.rotation.set(0, z > 0 ? 0 : Math.PI, 0);
+    const happy = new THREE.Mesh(new THREE.TorusGeometry(0.033, 0.009, 6, 14, Math.PI), darkMat);
+    happy.position.copy(eye.position);
     happy.visible = false;
     head.add(happy);
     eyesHappy.push(happy);
   }
-  root.add(head);
 
-  /* 四足 */
-  for (const [x, z] of [[0.38, 0.26], [0.38, -0.26], [-0.40, 0.26], [-0.40, -0.26]]) {
-    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.085, 0.27, 14), belly);
-    leg.position.set(x, 0.135, z);
-    leg.castShadow = true;
-    root.add(leg);
+  /* 鼻头：吻部上缘的一块深色横垫 */
+  const nose = new THREE.Mesh(roundedBox(0.17, 0.055, 0.06, 0.018), darkMat);
+  nose.position.set(0, 0.055, 0.452);
+  nose.rotation.x = -0.30;
+  head.add(nose);
+
+  /* 嘴：鼻下一道浅浅的笑弧 */
+  const smile = new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.009, 6, 16, Math.PI), darkMat);
+  smile.rotation.z = Math.PI;
+  smile.position.set(0, -0.10, 0.462);
+  head.add(smile);
+
+  /* 腮红：两颊，椭圆 */
+  const blushMat = new THREE.MeshBasicMaterial({ color: 0xd98a7a, transparent: true, opacity: 0.30, depthWrite: false });
+  for (const z of [-1, 1]) {
+    const blush = new THREE.Mesh(new THREE.CircleGeometry(0.05, 20), blushMat);
+    blush.scale.set(1.3, 1, 1);
+    blush.rotation.y = 0;
+    blush.position.set(z * 0.20, -0.06, 0.483);
+    head.add(blush);
   }
 
-  /* 尾巴：一小坨，水豚本来就没多少尾巴 */
-  tail = new THREE.Mesh(new THREE.SphereGeometry(0.07, 12, 8), muzzleMat);
-  tail.position.set(-0.655, 0.40, 0);
+  /* 前爪：坐姿撑在身前 */
+  for (const z of [-1, 1]) {
+    const paw = new THREE.Mesh(roundedBox(0.17, 0.26, 0.19, 0.07), bellyMat);
+    paw.position.set(z * 0.21, 0.14, 0.30);
+    paw.castShadow = true;
+    paw.receiveShadow = true;
+    root.add(paw);
+  }
+  /* 后脚：塞进身体底面，不能悬空 */
+  for (const z of [-1, 1]) {
+    const foot = new THREE.Mesh(roundedBox(0.19, 0.10, 0.26, 0.045), bellyMat);
+    foot.position.set(z * 0.26, 0.06, -0.06);
+    foot.castShadow = true;
+    foot.receiveShadow = true;
+    root.add(foot);
+  }
+
+  /* 尾巴：被身体挡住一半 */
+  tail = new THREE.Mesh(new THREE.SphereGeometry(0.05, 12, 8), bellyMat);
+  tail.position.set(0, 0.34, -0.34);
   tail.castShadow = true;
   root.add(tail);
 
@@ -189,11 +217,11 @@ function build() {
   scene.add(ground);
 
   disc = new THREE.Mesh(
-    new THREE.CircleGeometry(0.72, 32),
+    new THREE.CircleGeometry(0.62, 32),
     new THREE.MeshBasicMaterial({ color: 0x14100b, transparent: true, opacity: 0.1, depthWrite: false })
   );
   disc.rotation.x = -Math.PI / 2;
-  disc.position.set(-0.02, 0.004, 0);
+  disc.position.set(0, 0.004, 0.04);
   scene.add(disc);
   paintDisc();
 
@@ -229,6 +257,18 @@ function resize() {
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
   renderer.setSize(w, h, false);
   camera.aspect = w / h;
+  /* 取景：模型半高 0.40，要求占满舞台高约 75% → 需要的半高 0.53；
+     窄屏还要保证宽度装得下（半宽 0.88），两个约束取远的那个 */
+  const tan = Math.tan((camera.fov * Math.PI) / 360);
+  const box = new THREE.Box3().setFromObject(root);
+  const size = box.getSize(new THREE.Vector3());
+  const ctr = box.getCenter(new THREE.Vector3());
+  const dH = size.y / (2 * tan);
+  const dW = size.x / (2 * tan * camera.aspect);
+  camera.position.x = 0.55;
+  camera.position.y = 0.86;
+  camera.position.z = Math.max(dH, dW) * (w <= 640 ? 1.45 : 1.62);
+  camera.lookAt(0, 0.56, 0);
   camera.updateProjectionMatrix();
   renderer.render(scene, camera);
 }
@@ -266,7 +306,7 @@ function happy(dur) {
 function idleTweens() {
   if (reduce || !gsap) return;
   idle = gsap.timeline({ repeat: -1, defaults: { ease: 'sine.inOut' } });
-  idle.to(body.scale, { y: 0.3381, duration: 2.3, yoyo: true, repeat: -1, ease: 'sine.inOut' }, 0);
+  idle.to(body.scale, { y: 0.985, duration: 2.3, yoyo: true, repeat: -1, ease: 'sine.inOut' }, 0);
   idle.to(tail.rotation, { y: 0.32, duration: 1.6, yoyo: true, repeat: -1 }, 0);
   for (const ear of ears) idle.to(ear.rotation, { z: 0.16, duration: 0.12, repeat: -1, repeatDelay: 5.2, yoyo: true }, 0);
   /* 眨眼：一条 timeline 循环，每次换一次随机间隔 */
@@ -464,9 +504,9 @@ async function boot() {
     return;
   }
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(36, 1, 0.1, 24);
-  camera.position.set(0.10, 1.02, 2.86);
-  camera.lookAt(0.12, 0.56, 0);
+  camera = new THREE.PerspectiveCamera(34, 1, 0.1, 24);
+  camera.position.set(0.40, 0.66, 1.9);
+  camera.lookAt(0.03, 0.42, 0);
   build();
   bind();
   resize();
@@ -477,7 +517,8 @@ async function boot() {
     return;
   }
   gsap.ticker.add(() => { t += gsap.ticker.deltaRatio(60) / 60; });
-  idleTweens();
+  /* ?noblink：截图/自测时关掉随机眨眼，免得抓在闭眼那一帧 */
+  if (!location.search.includes('noblink')) idleTweens();
   start();
 }
 

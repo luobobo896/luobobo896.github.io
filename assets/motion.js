@@ -26,9 +26,9 @@
     });
   };
 
-  /* 1. 首屏入场交给 CSS（.hero__copy > * 的 rise）：同一元素只留一条时间线 */
+  /* 1. 首屏入场走 CSS rise，同一元素只留一条时间线 */
 
-  /* 2. 滚动入场：ScrollTrigger.batch 一次批量进场，每块只放一次 */
+  /* 2. 滚动入场：ST.batch 批量点亮，每块只放一次 */
   if (canAnimate) {
     const items = gsap.utils.toArray(".reveal");
     const shown = new Set();
@@ -36,10 +36,13 @@
       els.forEach((el) => {
         if (shown.has(el)) return;
         shown.add(el);
-        gsap.to(el, { opacity: 1, y: 0, duration: 0.62, ease: EASE, overwrite: true });
+        gsap.to(el, { opacity: 1, y: 0, duration: 0.62, ease: EASE, overwrite: true,
+          clearProps: "translate,rotate,scale" });
       });
     };
     gsap.set(items, { opacity: 0, y: 26 });
+    /* 清掉 GSAP 补的 inline scale:none，它压掉 .card:active 的 scale */
+    gsap.set(items, { clearProps: "scale,rotate" });
     /* 批量进场：同一屏的几块一起点亮，带 0.08s 错峰 */
     ST.batch(items, {
       /* 用「元素顶边进视口下缘」而不是「到 88% 线」：页面最底部那块
@@ -47,17 +50,16 @@
       start: "top bottom-=60",
       once: true,
       onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.62, ease: EASE, stagger: 0.08, overwrite: true,
+        clearProps: "translate,rotate,scale",
         onStart() { batch.forEach((el) => shown.add(el)); } }),
     });
-    /* 兜底：锚点跳转、截图脚本的瞬时滚动会跳过 batch 的判定，
-       这些块会永远停在 0。滚动时按位置补一刀，正常滚动不会走到这里。 */
+    /* 兜底：锚点跳转/截图脚本的瞬时滚动会跳过 batch，按位置补一刀 */
     const sweep = () => {
       const h = innerHeight - 60;
       show(items.filter((el) => !shown.has(el) && el.getBoundingClientRect().top < h));
     };
     addEventListener("scroll", sweep, { passive: true });
-    /* 页面自己还会长高（3D 舞台落位、字体到位），长高后要再扫一次，
-       否则新落到底部之外的那几块没有滚动事件可等 */
+    /* 页面还会长高（3D 落位、字体到位），长高后再扫一次 */
     if (window.ResizeObserver) new ResizeObserver(sweep).observe(document.body);
     sweep();
   } else {
