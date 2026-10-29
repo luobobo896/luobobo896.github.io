@@ -1333,7 +1333,7 @@ ol.items li::before {
   height: 46px;
   border-radius: 50%;
   background: var(--pet-fur-light);
-  opacity: 0.5;
+  opacity: 0.2;
   transform: translateZ(6px);
 }
 .pet__tail {
@@ -1356,23 +1356,24 @@ ol.items li::before {
 .pet__head {
   left: 190px;
   top: 70px;
-  width: 112px;
-  height: 92px;
+  width: 104px;
+  height: 78px;
   border-radius: 34px 26px 30px 28px;
   background: linear-gradient(174deg, var(--pet-fur-light) 0%, var(--pet-fur-light) 46%, var(--pet-fur) 100%);
   box-shadow: 0 0 0 2px var(--pet-ink), inset 0 -10px 0 rgba(43, 31, 24, 0.09);
   transform: translateZ(18px);
   transition: rotate 0.28s ease-out;
 }
-.pet__ear { width: 12px; height: 10px; border-radius: 50% 50% 42% 42%; background: var(--pet-fur); box-shadow: 0 0 0 2px var(--pet-ink); }
-.pet__ear--l { left: 26px; top: -4px; transform: translateZ(-6px); transform-origin: 50% 100%; animation: petEar 5.6s ease-in-out infinite; }
-.pet__ear--r { left: 68px; top: -6px; transform: translateZ(10px); }
+.pet__ear { width: 9px; height: 8px; border-radius: 50% 50% 42% 42%; background: var(--pet-fur); box-shadow: 0 0 0 2px var(--pet-ink); }
+.pet__ear--l { left: 8px; top: -5px; transform: translateZ(-6px); transform-origin: 50% 100%; animation: petEar 5.6s ease-in-out infinite; }
+.pet__ear--r { left: 88px; top: -5px; transform: translateZ(10px); }
 .pet__muzzle {
-  left: -6px;
-  top: 50px;
-  width: 76px;
-  height: 48px;
-  border-radius: 16px 26px 18px 18px;
+  left: auto;
+  right: -16px;
+  top: 40px;
+  width: 68px;
+  height: 38px;
+  border-radius: 12px 18px 18px 12px;
   background: linear-gradient(172deg, var(--pet-muzzle) 0%, var(--pet-fur-light) 100%);
   box-shadow: 0 0 0 2px var(--pet-ink);
   transform: translateZ(26px);
@@ -1381,9 +1382,9 @@ ol.items li::before {
 .pet__muzzle::before {
   content: "";
   position: absolute;
-  left: 24px;
-  top: 3px;
-  width: 19px;
+  left: 38px;
+  top: 5px;
+  width: 20px;
   height: 10px;
   border-radius: 50%;
   background:
@@ -1391,17 +1392,17 @@ ol.items li::before {
     radial-gradient(circle at 72% 50%, var(--pet-ink) 2px, transparent 2.4px);
   opacity: 0.85;
 }
-/* 嘴：一条向下的小弧 */
+/* 嘴：水豚几乎看不见嘴，这里只留一条极淡的短横，不做笑脸弧 */
 .pet__muzzle::after {
   content: "";
   position: absolute;
-  left: 24px;
-  top: 12px;
-  width: 19px;
-  height: 11px;
-  border-bottom: 2px solid var(--pet-ink);
-  border-radius: 0 0 10px 10px;
-  opacity: 0.5;
+  left: 46px;
+  top: 26px;
+  width: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--pet-ink);
+  opacity: 0.22;
 }
 .pet__eye {
   width: 11px;
@@ -1423,8 +1424,8 @@ ol.items li::before {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.75);
 }
-.pet__eye--l { left: 58px; top: 20px; }
-.pet__eye--r { left: 82px; top: 18px; animation-delay: 0.06s; }
+.pet__eye--l { left: 34px; top: 16px; }
+.pet__eye--r { left: 62px; top: 14px; animation-delay: 0.06s; }
 .pet__cheek {
   left: 14px;
   top: 54px;
