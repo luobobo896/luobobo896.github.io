@@ -14,7 +14,10 @@
 
 <nav class="nav" id="nav" aria-label="页面导航">
   <div class="nav__inner">
-    <span class="nav__brand">Hanson</span>
+    <span class="nav__brand">
+      <img class="nav__capy" src="assets/capybara/head-48.webp" alt="" width="24" height="24" decoding="async" />
+      Hanson
+    </span>
     <ul class="nav__links">
       <li><a href="#services">能提供什么</a></li>
       <li><a href="#stack">技术栈</a></li>
@@ -50,100 +53,12 @@
           </ul>
         </div>
 
-        <!-- 卡皮巴拉：纯 CSS 驱动的呼吸 / 眨眼 / 耳朵抖 / 点击受惊 -->
-        <button class="capy" id="capy" type="button" aria-label="卡皮巴拉，点一下试试">
-          <span class="capy__aura" aria-hidden="true"></span>
-          <svg viewBox="0 0 240 240" role="img" aria-hidden="true">
-            <defs>
-              <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#b58459" />
-                <stop offset="100%" stop-color="#8f6039" />
-              </linearGradient>
-              <linearGradient id="muzzle" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#d3aa7c" />
-                <stop offset="100%" stop-color="#b98d5e" />
-              </linearGradient>
-              <radialGradient id="cheek" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#e8a58c" stop-opacity=".5" />
-                <stop offset="100%" stop-color="#e8a58c" stop-opacity="0" />
-              </radialGradient>
-              <radialGradient id="toplight" cx="50%" cy="0%" r="80%">
-                <stop offset="0%" stop-color="#ffffff" stop-opacity=".22" />
-                <stop offset="60%" stop-color="#ffffff" stop-opacity="0" />
-              </radialGradient>
-            </defs>
-
-            <!-- 地面阴影 -->
-            <ellipse cx="120" cy="216" rx="66" ry="9" fill="#000" opacity=".10" />
-
-            <g class="capy__body">
-              <!-- 耳朵（小、贴头两侧） -->
-              <g class="capy__ear-l">
-                <ellipse cx="64" cy="68" rx="10" ry="8" fill="#7d5330" />
-                <ellipse cx="64" cy="68" rx="4.5" ry="3.5" fill="#5d3a1f" opacity=".8" />
-              </g>
-              <g class="capy__ear-r">
-                <ellipse cx="176" cy="68" rx="10" ry="8" fill="#7d5330" />
-                <ellipse cx="176" cy="68" rx="4.5" ry="3.5" fill="#5d3a1f" opacity=".8" />
-              </g>
-
-              <!-- 身体 -->
-              <path d="M120 148c46 0 84 22 84 52 0 18-10 30-26 34H62c-16-4-26-16-26-34 0-30 38-52 84-52z" fill="url(#fur)" />
-              <!-- 前爪 -->
-              <rect x="76" y="214" width="32" height="18" rx="9" fill="#a3744a" />
-              <rect x="132" y="214" width="32" height="18" rx="9" fill="#a3744a" />
-              <!-- 肚皮 -->
-              <ellipse cx="120" cy="208" rx="52" ry="22" fill="#cf9f6f" opacity=".38" />
-              <ellipse cx="120" cy="166" rx="52" ry="10" fill="#000" opacity=".06" />
-
-              <!-- 头：方一点、宽一点 -->
-              <rect x="58" y="60" width="124" height="108" rx="34" fill="url(#fur)" />
-              <rect x="58" y="60" width="124" height="108" rx="34" fill="url(#toplight)" />
-
-              <!-- 口鼻：整块浅色，方中带圆 -->
-              <rect x="72" y="126" width="96" height="46" rx="18" fill="url(#muzzle)" />
-              <ellipse cx="86" cy="118" rx="14" ry="8" fill="url(#cheek)" />
-              <ellipse cx="154" cy="118" rx="14" ry="8" fill="url(#cheek)" />
-
-              <!-- 鼻孔 -->
-              <ellipse cx="107" cy="139" rx="4" ry="3" fill="#4a2f1a" />
-              <ellipse cx="133" cy="139" rx="4" ry="3" fill="#4a2f1a" />
-
-              <!-- 嘴 -->
-              <path d="M110 158q10 7 20 0" stroke="#4a2f1a" stroke-width="3"
-                    stroke-linecap="round" fill="none" opacity=".75" />
-
-              <!-- 眼睛（睁） -->
-              <g class="capy__eyes-open">
-                <ellipse cx="82" cy="98" rx="5.5" ry="7" fill="#2b1a0e" />
-                <ellipse cx="158" cy="98" rx="5.5" ry="7" fill="#2b1a0e" />
-                <circle cx="80" cy="95.5" r="2" fill="#fff" opacity=".92" />
-                <circle cx="156" cy="95.5" r="2" fill="#fff" opacity=".92" />
-              </g>
-
-              <!-- 眼睛（^ ^） -->
-              <g class="capy__eyes-happy" stroke="#2b1a0e" stroke-width="4"
-                 stroke-linecap="round" fill="none">
-                <path d="M75 101q7-9 14 0" />
-                <path d="M151 101q7-9 14 0" />
-              </g>
-
-              <!-- 头顶的叶子 -->
-              <g class="capy__leaf">
-                <path d="M124 60c0-13 9-22 22-24-2 13-9 22-22 24z" fill="#3f8f4f" />
-                <path d="M124 60c0-13-9-22-22-24 2 13 9 22 22 24z" fill="#57a869" />
-                <path d="M124 60v-11" stroke="#2f7139" stroke-width="3" stroke-linecap="round" />
-              </g>
-            </g>
-          </svg>
-
-          <span class="capy__hearts" aria-hidden="true">
-            <svg class="heart heart--a" viewBox="0 0 24 24"><path d="M12 21.2C9.6 19.4 2 14.4 2 9.1 2 5.9 4.3 4 7 4c2 0 3.8 1.1 5 3 1.2-1.9 3-3 5-3 2.7 0 5 1.9 5 5.1 0 5.3-7.6 10.3-10 12.1z"/></svg>
-            <svg class="heart heart--b" viewBox="0 0 24 24"><path d="M12 21.2C9.6 19.4 2 14.4 2 9.1 2 5.9 4.3 4 7 4c2 0 3.8 1.1 5 3 1.2-1.9 3-3 5-3 2.7 0 5 1.9 5 5.1 0 5.3-7.6 10.3-10 12.1z"/></svg>
-          </span>
-
-          <p class="capy__hint">点一下</p>
-        </button>
+        <ul class="stats">
+          <li class="stat"><span class="stat__num">4</span><span class="stat__label">个作品</span></li>
+          <li class="stat"><span class="stat__num">29</span><span class="stat__label">条检查项</span></li>
+          <li class="stat"><span class="stat__num">2</span><span class="stat__label">篇复盘长文</span></li>
+          <li class="stat"><span class="stat__num">5</span><span class="stat__label">年 Java</span></li>
+        </ul>
 
       </div>
     </div>
@@ -158,25 +73,16 @@
       </div>
       <div class="grid">
         <div class="card reveal">
-          <div class="card__top">
-            <span class="card__no">01</span>
-          </div>
           <h3>线上故障救火</h3>
           <p>接口报错、支付回调验签失败、慢 SQL、连接池打满、部署起不来、并发与幂等问题。</p>
           <div class="price">200–300 元/小时</div>
         </div>
         <div class="card reveal">
-          <div class="card__top">
-            <span class="card__no">02</span>
-          </div>
           <h3>后端接口 / 模块外包</h3>
           <p>Spring Boot 接口与数据库设计、支付对接、小程序/APP 后端、老系统改造。</p>
           <div class="price">500–800 元/天</div>
         </div>
         <div class="card reveal">
-          <div class="card__top">
-            <span class="card__no">03</span>
-          </div>
           <h3>企业 AI 知识库</h3>
           <p>文档导入、问答界面、文档级权限、私有化部署——数据不出内网。先做 demo 再签。</p>
           <div class="price">1.5 万起</div>
@@ -204,27 +110,59 @@
 
   <!-- ── 做过的东西 ─────────────────────────────────────── -->
   <section id="works">
-    <div class="wrap wrap--wide">
+    <div class="wrap">
       <div class="section__head reveal">
         <p class="eyebrow">03</p>
         <h2>做过的东西</h2>
       </div>
       <ul class="plain reveal">
         <li>
-          <div class="item-title"><a href="https://github.com/luobobo896/asset-management">asset-management</a> · 企业数字资产台账</div>
-          <div class="item-desc">Go 实现的企业内部台账系统，管号码、小程序、商户号等 7 类资源与主数据，带跨模块统计。</div>
+          <div class="work">
+            <pre class="term" aria-label="仓库可见性自检"><code>$ gh repo view
+PRIVATE
+$ curl -sI
+HTTP/2 404</code></pre>
+            <div class="work__body">
+              <div class="item-title"><span class="item-name">asset-management</span> · 企业数字资产台账 <span class="badge">私有 · 可约演示</span></div>
+              <div class="item-desc">Go 实现的企业内部台账系统，管号码、小程序、商户号等 7 类资源与主数据，带跨模块统计。</div>
+            </div>
+          </div>
         </li>
         <li>
-          <div class="item-title"><a href="https://github.com/luobobo896/whatsapp_ai">whatsapp_ai</a> · WhatsApp AI 客服</div>
-          <div class="item-desc">纯 Go 实现的多账号客服平台，内置连接器与 AI 自动回复，配本地网关与 iOS 客户端。</div>
+          <div class="work">
+            <pre class="term" aria-label="仓库可见性自检"><code>$ gh repo view
+PRIVATE
+$ curl -sI
+HTTP/2 404</code></pre>
+            <div class="work__body">
+              <div class="item-title"><span class="item-name">whatsapp_ai</span> · WhatsApp AI 客服 <span class="badge">私有 · 可约演示</span></div>
+              <div class="item-desc">纯 Go 实现的多账号客服平台，内置连接器与 AI 自动回复，配本地网关与 iOS 客户端。</div>
+            </div>
+          </div>
         </li>
         <li>
-          <div class="item-title"><a href="https://github.com/luobobo896/story-to-video-pipeline">story-to-video-pipeline</a> · 影视制作流水线</div>
-          <div class="item-desc">把剧本或小说按阶段编排成成片，短剧、影视、动画复用同一套流程。</div>
+          <div class="work">
+            <pre class="term" aria-label="仓库根目录"><code>$ ls
+docs projects
+rules skills
+templates tools</code></pre>
+            <div class="work__body">
+              <div class="item-title"><a href="https://github.com/luobobo896/story-to-video-pipeline">story-to-video-pipeline</a> · 影视制作流水线</div>
+              <div class="item-desc">把剧本或小说按阶段编排成成片，短剧、影视、动画复用同一套流程。</div>
+            </div>
+          </div>
         </li>
         <li>
-          <div class="item-title"><a href="https://github.com/luobobo896/ptu">ptu</a> · 跨平台端口管理工具</div>
-          <div class="item-desc">Rust 实现的命令行工具，查看端口占用，类 ss / lsof，macOS 与 Linux 可用。</div>
+          <div class="work">
+            <pre class="term" aria-label="ptu 仓库 src 目录"><code>$ ls src
+cli.rs
+commands
+core</code></pre>
+            <div class="work__body">
+              <div class="item-title"><a href="https://github.com/luobobo896/ptu">ptu</a> · 跨平台端口管理工具</div>
+              <div class="item-desc">Rust 实现的命令行工具，查看端口占用，类 ss / lsof，macOS 与 Linux 可用。</div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -232,7 +170,7 @@
 
   <!-- ── 可以直接拿去用的 ───────────────────────────────── -->
   <section id="tools">
-    <div class="wrap wrap--wide">
+    <div class="wrap">
       <div class="section__head reveal">
         <p class="eyebrow">04</p>
         <h2>可以直接拿去用的</h2>
@@ -248,7 +186,7 @@
 
   <!-- ── 写过的文章 ─────────────────────────────────────── -->
   <section id="writing">
-    <div class="wrap wrap--wide">
+    <div class="wrap">
       <div class="section__head reveal">
         <p class="eyebrow">05</p>
         <h2>写过的文章</h2>
@@ -272,7 +210,7 @@
 
   <!-- ── 资料下载 ───────────────────────────────────────── -->
   <section id="downloads">
-    <div class="wrap wrap--wide">
+    <div class="wrap">
       <div class="section__head reveal">
         <p class="eyebrow">06</p>
         <h2>资料下载</h2>
@@ -313,8 +251,30 @@
 </main>
 
 <footer>
-  <div class="wrap wrap--wide">
-    © 2026 Hanson · 本页内容为个人技术能力介绍，不涉及任何在职公司信息。
+  <div class="wrap">
+    <div class="signature">
+      <!-- 卡皮巴拉：实拍裁切（CC BY 2.0），点一下受惊 -->
+      <button class="capy" id="capy" type="button" aria-label="卡皮巴拉，点一下试试">
+        <img class="capy__photo" src="assets/capybara/head-vig-96.webp" alt="水豚头像" width="96" height="96" decoding="async" />
+        <svg class="capy__eyes-happy" viewBox="0 0 96 96" aria-hidden="true">
+          <!-- 实拍图是 3/4 侧脸，只画得到的那只眼：一条 ^ 弧压在眼睛上就够 -->
+          <path d="M24 36q7-9 14 0" />
+        </svg>
+        <span class="capy__hearts" aria-hidden="true">
+          <svg class="heart heart--a" viewBox="0 0 24 24"><path d="M12 21.2C9.6 19.4 2 14.4 2 9.1 2 5.9 4.3 4 7 4c2 0 3.8 1.1 5 3 1.2-1.9 3-3 5-3 2.7 0 5 1.9 5 5.1 0 5.3-7.6 10.3-10 12.1z"/></svg>
+          <svg class="heart heart--b" viewBox="0 0 24 24"><path d="M12 21.2C9.6 19.4 2 14.4 2 9.1 2 5.9 4.3 4 7 4c2 0 3.8 1.1 5 3 1.2-1.9 3-3 5-3 2.7 0 5 1.9 5 5.1 0 5.3-7.6 10.3-10 12.1z"/></svg>
+        </span>
+        <span class="capy__hint">点一下</span>
+      </button>
+      <div class="signature__text">
+        <p class="copy">© 2026 Hanson · 本页内容为个人技术能力介绍，不涉及任何在职公司信息。</p>
+        <p class="credit">
+          摄影：<a href="https://commons.wikimedia.org/wiki/File:Capybara_portrait.jpg" rel="noopener" target="_blank">Karoly Lorentey</a> ·
+          <a href="https://creativecommons.org/licenses/by/2.0" rel="license noopener" target="_blank">CC BY 2.0</a> ·
+          来源：Wikimedia Commons · File:Capybara portrait.jpg（已裁切、调色、压缩）
+        </p>
+      </div>
+    </div>
   </div>
 </footer>
 

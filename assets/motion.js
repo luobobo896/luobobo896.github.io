@@ -17,14 +17,8 @@
     });
   };
 
-  /* 1. 首屏入场（Motion 的时间单位是秒：stagger(0.06) 不是 60） */
-  if (canAnimate && !reduce) {
-    M.animate(
-      ".hero__meta, .hero__copy h1, .hero__copy .lede, .hero__copy .tag, .capy",
-      { opacity: [0, 1], y: [22, 0] },
-      { delay: M.stagger(0.06), duration: 0.7, easing: EASE }
-    );
-  }
+  /* 1. 首屏入场交给 CSS（.hero__copy > * 的 rise）：同一元素只留一条时间线，
+        所以这里不再有 M.animate —— 双写会让元素「起两次」。 */
 
   /* 2. 滚动入场（每块只放一次） */
   if (canAnimate && !reduce) {
@@ -67,22 +61,29 @@
   /* 5. 指针跟随：只写 CSS 变量，交给 CSS 算；减弱动效时一条监听都不挂 */
   if (fine && !reduce) {
     const glow = document.getElementById("glow");
+    const cards = [...document.querySelectorAll(".card")];
     let raf = 0;
-    let px = 0;
-    let py = 0;
+    let ev = null;
     addEventListener(
       "pointermove",
       (e) => {
-        px = e.clientX / innerWidth;
-        py = e.clientY / innerHeight;
+        ev = e;
         if (raf) return;
         raf = requestAnimationFrame(() => {
           raf = 0;
-          html.style.setProperty("--mx", px.toFixed(3));
-          html.style.setProperty("--my", py.toFixed(3));
+          html.style.setProperty("--mx", (ev.clientX / innerWidth).toFixed(3));
+          html.style.setProperty("--my", (ev.clientY / innerHeight).toFixed(3));
           if (glow) {
-            glow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            glow.style.transform = `translate3d(${ev.clientX}px, ${ev.clientY}px, 0)`;
             glow.classList.add("is-on");
+          }
+          /* 卡面聚光：把指针在卡片内的百分比写给 CSS，.card::after 的
+             radial-gradient 才有人喂 --px/--py（否则那两行就是死代码） */
+          for (const card of cards) {
+            const r = card.getBoundingClientRect();
+            if (ev.clientX < r.left || ev.clientX > r.right || ev.clientY < r.top || ev.clientY > r.bottom) continue;
+            card.style.setProperty("--px", `${(((ev.clientX - r.left) / r.width) * 100).toFixed(1)}%`);
+            card.style.setProperty("--py", `${(((ev.clientY - r.top) / r.height) * 100).toFixed(1)}%`);
           }
         });
       },
@@ -104,18 +105,15 @@
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* 7. 卡皮巴拉：点一下受惊，回弹交给 spring */
+  /* 7. 卡皮巴拉：点一下受惊，回弹交给 CSS（.is-poked 的 poke 关键帧） */
   const capy = document.getElementById("capy");
   if (capy) {
     capy.addEventListener("click", () => {
       capy.classList.add("is-poked");
       if (canAnimate && !reduce) {
         try {
-          M.animate(
-            capy,
-            { scale: [1, 1.06, 1] },
-            { duration: 0.62, easing: [0.34, 1.56, 0.64, 1] }
-          );
+          /* 回弹曲线与全站一致，不再用 [0.34,1.56,0.64,1] 那种过冲弹性 */
+          M.animate(capy, { scale: [1, 1.06, 1] }, { duration: 0.62, easing: EASE });
         } catch (e) {
           /* 库的行为变了也不能影响点击反馈：类已经加上了 */
         }
