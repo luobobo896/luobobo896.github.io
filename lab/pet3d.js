@@ -31,6 +31,7 @@ const store = {
   set(v) { try { localStorage.setItem(KEY, String(v)); } catch { /* 隐私模式写不进去就算了 */ } },
 };
 let cute = store.get();
+let path = '';
 const rank = (n) => (RANK.find(([min]) => n >= min) || RANK[RANK.length - 1])[1];
 function paint() {
   cuteEl.textContent = '可爱值 ' + cute;
@@ -514,13 +515,13 @@ async function boot() {
     /* 减弱动效：只渲染静态姿势，一帧之后不再进循环 */
     renderer.render(scene, camera);
     frames = 1;
-    window.__petPath = 'reduce-static';
+    path = 'reduce-static';
     return;
   }
   gsap.ticker.add(() => { t += gsap.ticker.deltaRatio(60) / 60; });
   /* ?noblink：截图/自测时关掉随机眨眼，免得抓在闭眼那一帧 */
   if (!location.search.includes('noblink')) idleTweens();
-  window.__petPath = 'animate';
+  path = 'animate';
   start();
 }
 
@@ -547,6 +548,7 @@ function hitPoint(x, y, z) {
 
 window.__pet = () => ({
   mode: renderer ? '3d' : 'flat',
+  path,
   reduce,
   live,
   frames,
