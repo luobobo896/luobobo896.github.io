@@ -7,6 +7,6 @@
 <li>权限不在界面层判，落在文档级：检索时就带上用户可见的文档集合，越权命中根本不会进候选。</li>
 <li>入库脚本与问答服务分开，加文档只跑脚本，不动服务。</li>
 </ul>
-<h2 id="结果">结果</h2>
+<h2 id="验证">验证</h2>
 <p>内网独立部署，问答全流程零外网请求；权限按文档生效，检索结果里不会出现用户没权限的段落。</p>
 <p>同一个文档链接，普通员工身份打开是 403（<code>当前角色无权查看该文档</code>），换个角色才返回 200。权限不是在界面上藏起来，服务端就不给。</p> <p class="page__result"><strong>结果</strong> 仓库 421 行纯标准库，零第三方依赖；全程不联网，问答只在企业内网里跑。</p> <div class="figures"> <figure class="figure"> <img src="/files/cases/okb-answer.webp" width="1600" height="975" alt="离线知识库问答界面，提问「出差住宿报销上限是多少」后返回两条带出处的原文片段" loading="lazy" decoding="async"> <figcaption>提问后返回带出处的原文片段，右侧是召回分数与文档可见范围</figcaption> </figure> </div> <h2>技术栈</h2> <ul class="tags"><li>Python</li><li>RAG</li><li>BM25</li><li>向量检索</li><li>权限模型</li></ul>  <h2>链接</h2> <ul class="links"> <li><a href="https://github.com/luobobo896/offline-kb" target="_blank" rel="noopener noreferrer">GitHub</a></li> </ul>  <p class="page__back"><a href="/cases/">← 回案例列表</a></p> </div> </article>  </main> <footer class="foot"> <div class="wrap foot__in"> <p>© 2026 Hanson · 本页内容为个人技术能力介绍，不涉及任何在职公司信息。</p> <p><a href="mailto:luobobo896@gmail.com">luobobo896@gmail.com</a></p> </div> </footer> </body></html>
