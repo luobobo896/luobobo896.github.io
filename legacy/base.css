@@ -44,6 +44,8 @@
 
   /* 字号：clamp 撑场面，其余只走刻度 */
   --fs-hero: clamp(44px, 7.2vw, 76px);
+  /* 内页 h1 与新站同一档 */
+  --fs-h1: clamp(30px, 5.4vw, 44px);
   --fs-d2: clamp(28px, 3.4vw, 40px);
   --lh-hero: 1.04;
   --lh-tight: 1.16;
@@ -329,7 +331,7 @@ footer {
 /* ══════════════════ 3. 排版 ══════════════════ */
 h1 {
   margin: 0 0 20px;
-  font-size: var(--fs-hero);
+  font-size: var(--fs-h1);
   font-weight: 600;
   line-height: var(--lh-hero);
   letter-spacing: -0.022em;
