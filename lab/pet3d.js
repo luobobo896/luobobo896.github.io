@@ -10,7 +10,7 @@
 import * as THREE from '/vendor/three.module.min.js';
 
 const KEY = 'capy.cute.v1';
-const RANK = [[60, '家属'], [30, '常客'], [15, '朋友'], [5, '眼熟'], [0, '初识']];
+const RANK = [[30, '家属'], [15, '常客'], [8, '朋友'], [3, '眼熟'], [0, '初识']];
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 

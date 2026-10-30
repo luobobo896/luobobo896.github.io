@@ -237,6 +237,14 @@ a {
   .nav__links { gap: 24px; }
 }
 
+/* 独立链接的触摸高度（返回主页 / 页脚链接）：<a> 是 inline，min-height 不生效 */
+.doc footer a {
+  display: inline-flex;
+  align-items: center;
+  /* 点击区 44px：用 padding 撑开，不改文字排版 */
+  padding-block: 12px;
+}
+
 .nav__links a {
   display: inline-flex;
   align-items: center;
